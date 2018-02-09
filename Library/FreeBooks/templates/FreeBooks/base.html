@@ -5,7 +5,7 @@
 <head>
     <title>
     {% block siteTitle %}
-        
+
     {% endblock siteTitle %}
     </title>
     <meta charset="utf-8">
@@ -14,7 +14,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'FreeBooks/css/base.css' %}" />
-    
+
 </head>
 
 <body>
@@ -33,7 +33,8 @@
                     <li class="active"><a href="#">Home</a></li>
                     <li><a href="#">About</a></li>
                     <li><a href="#">Categories</a></li>
-                    <li><a href="#">Authors</a></li>
+																				<li><a href="#">Authors</a></li>
+                    <li><a href="#">Books</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -50,7 +51,7 @@
             </div>
             <div class="col-sm-8 text-left">
                 {% block siteContent %}
-                    
+
                 {% endblock siteContent %}
             </div>
             <div class="col-sm-2 sidenav">
