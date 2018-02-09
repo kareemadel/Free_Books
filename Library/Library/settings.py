@@ -54,8 +54,6 @@ ROOT_URLCONF = 'Library.urls'
 
 MEDIA_ROOT = './media'
 
-STATIC_ROOT = './static'
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
