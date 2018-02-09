@@ -52,6 +52,10 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'Library.urls'
 
+MEDIA_ROOT = './media'
+
+STATIC_ROOT = './static'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -79,7 +83,6 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'FreeBooks',
 		'USER':'kash',
-		'local':'localhost',
 		'PASSWORD':'1234',
         'HOST': 'localhost',
     }
