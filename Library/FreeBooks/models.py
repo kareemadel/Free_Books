@@ -68,6 +68,9 @@ class Profile(models.Model):
     birth_date = models.DateField("Date of Birth", null=True, blank=True)
     pic = models.ImageField("Profile Picture", blank=True)
     favourite_category = models.ForeignKey(Category, related_name="favorite_category", on_delete=models.CASCADE, verbose_name="Favorite Category")
+    rating = models.ManyToManyField(Book, through='Rate', related_name='user_rating')
+    reading = models.ManyToManyField(Book, through='Read', related_name='user_read')
+    wish = models.ManyToManyField(Book, through='WishList', related_name='user_wish')
 
     def __str__(self):
         return self.name
