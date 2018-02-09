@@ -14,7 +14,7 @@ class Author(models.Model):
     author_id = models.AutoField("Author ID", primary_key=True)
     birth_date = models.DateField("Date of Birth", null=True, blank=True)
     death_date = models.DateField("Date of Death", null=True, blank=True)
-    pic_url = models.URLField("Picture URL", blank=True)
+    pic = models.ImageField("Author Picture", blank=True)
     name = models.CharField("Author name", max_length=50)
     bio = models.TextField("Bio", blank=True)
 
@@ -35,7 +35,7 @@ class Book(models.Model):
     country = models.CharField("Country", max_length=50, blank=True)
     link = models.URLField("Link", blank=True)
     name = models.CharField("Book Name", max_length=50)
-    pic_url = models.URLField("Picture URL", blank=True)
+    pic = models.ImageField("Book Cover", blank=True)
 
     def __str__(self):
         return self.name
@@ -63,8 +63,8 @@ class Profile(models.Model):
     name = models.CharField("User Name", blank=True, max_length=50)
     email = models.EmailField("Email", blank=True, max_length=50)
     birth_date = models.DateField("Date of Birth", null=True, blank=True)
-    pic_url = models.URLField("Picture URL", blank=True)
-    name = models.CharField("Author name", max_length=50)
+    pic = models.ImageField("Profile Picture", blank=True)
+    name = models.CharField("User Name", max_length=50)
     favourite_category = models.ForeignKey(Category, related_name="favorite_category", on_delete=models.CASCADE)
 
     def __str__(self):
@@ -116,5 +116,3 @@ class WishList(models.Model):
 
     def __str__(self):
         pass
-    
-    
