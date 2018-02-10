@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView, DetailView, ListView
-from .models import Book
+from .models import Book, Category
 
 # Create your views here.
 class home_view(TemplateView):
@@ -13,3 +13,10 @@ class book_view(DetailView):
 
 class book_list_view(ListView):
     model = Book
+
+class category_list_view(ListView):
+    model = Category
+
+
+class category_view(DetailView):
+    model = Category

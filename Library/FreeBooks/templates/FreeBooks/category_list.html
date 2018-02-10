@@ -2,25 +2,25 @@
 {% load static %}
 
 {% block siteTitle %}
-    All Authors
+    All Categories
 {% endblock siteTitle %}
 
 {% block Bar %}
     <li><a href="{% url 'FreeBooks:home' %}">Home</a></li>
     <li><a href="#">About</a></li>
-    <li><a href="{% url 'FreeBooks:category_list' %}">Categories</a></li>
+    <li class="active"><a href="#">Categories</a></li>
     <li><a href="#">Authors</a></li>
-    <li class="active"><a href="#">Books</a></li>
+    <li><a href="{% url 'FreeBooks:book_list' %}">Books</a></li>
 {% endblock Bar %}
 
 {% block siteContent %}
 
-    {% for book in book_list %}
+    {% for category in category_list %}
         <ul>
-            <li><a href="{% url 'FreeBooks:book_detail' book.book_id %}">{{ book.name }}</a></li>
+            <li><a href="{% url 'FreeBooks:category_detail' category.category_id %}">{{ category.name }}</a></li>
         </ul>
     {% empty %}
-        There are no books.
+        There are no categories.
     {% endfor %}
     
 {% endblock siteContent %}

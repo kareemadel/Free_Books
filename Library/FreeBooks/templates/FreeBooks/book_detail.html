@@ -16,7 +16,7 @@
 {% block Bar %}
     <li><a href="{% url 'FreeBooks:home' %}">Home</a></li>
     <li><a href="#">About</a></li>
-    <li><a href="#">Categories</a></li>
+    <li><a href="{% url 'FreeBooks:category_list' %}">Categories</a></li>
     <li><a href="#">Authors</a></li>
     <li class="active"><a href="{% url 'FreeBooks:book_list' %}">Books</a></li>
 {% endblock Bar %}
