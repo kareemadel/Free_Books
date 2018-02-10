@@ -1,0 +1,21 @@
+{% extends "FreeBooks/base.html" %}
+
+{% block siteTitle %}
+{{ author.name }}
+{% endblock %}
+
+{% block siteContent %}
+  <h1> {{ author.name }}</h1>
+  <p> <img class="resize" src=  "{{ author.pic.url }}" ></p>
+		<a href="#" class="action-button shadow animate green">Follow</a>
+
+
+{% endblock %}
+{% block bioContent %}
+<p>{{ author.bio }}</p>
+<div class="info">
+<p><strong>Books</strong><a href=" ">{{ Book.author }}</a></p>
+<p><strong>birth of date</strong> {{ author.birth_date }}</p>
+<p><strong>death of date</strong>{{ author.death_date }} </p>
+</div>
+{% endblock %}

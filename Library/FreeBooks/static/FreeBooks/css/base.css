@@ -1,11 +1,28 @@
 /* Remove the navbar's default margin-bottom and rounded borders */
-
+img.resize {
+  width:300px;
+  height:300px;
+}
 .navbar {
     margin-bottom: 0;
     border-radius: 0;
 }
 
-
+.bio{
+	 height:100px;
+		position: fixed;
+    bottom: 400px;
+    right: 350px;
+    width: 400px;
+    height: 50px;
+}
+.info{
+	position: fixed;
+			bottom: 300px;
+			right: 500px;
+			width: 400px;
+			height: 1px;
+}
 /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
 
 .row.content {
@@ -23,11 +40,40 @@
 
 
 /* Set black background color, white text and some padding */
+.animate
+{
+	transition: all 0.1s;
+	-webkit-transition: all 0.1s;
+}
+.action-button
+{
+	position: relative;
+	padding: 10px 40px;
+  margin: 0px 10px 10px 0px;
+  float: left;
+	border-radius: 10px;
+	font-family: 'Pacifico', cursive;
+	font-size: 25px;
+	color: #FFF;
+	text-decoration: none;
+}
+.green
+{
+	background-color: #82BF56;
+	border-bottom: 5px solid #669644;
+	text-shadow: 0px -2px #669644;
+}
 
+.action-button:active
+{
+	transform: translate(0px,5px);
+  -webkit-transform: translate(0px,5px);
+	border-bottom: 1px solid;
+}
 footer {
     background-color: #555;
     color: white;
-    padding: 15px;
+    padding: 20px;
 }
 
 
