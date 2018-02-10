@@ -1,0 +1,72 @@
+{% extends "FreeBooks/base.html" %}
+{% load static %}
+
+{% block siteTitle %}
+    {{ book.name }} - {{ book.author_id.name }}
+{% endblock siteTitle %}
+
+
+{% block cssFiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'FreeBooks/css/book_detail.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="{% static 'FreeBooks/js/book_detail.js' %}"></script>
+{% endblock cssFiles %}
+
+
+{% block siteContent %}
+    <div class="imageColumn">
+        <div class="bookCover">        
+            <a href="{{ book.pic.url }}"><img id="coverImage" alt="{{ book.name }}" src="{{ book.pic.url }}"></a>
+        </div>
+        <div class="buttons">
+            <button type="button" class="btn btn-primary">Read</button>
+        </div>
+        <div class="buttons">
+            <button type="button" class="btn btn-primary">Wish to Read</button>
+        </div>
+        <!-- Rating Stars Box -->
+        <div class='rating-stars text-center'>
+            <ul id='stars'>
+                <li class='star' title='Poor' data-value='1'>
+                    <i class='fa fa-star fa-fw'></i>
+                </li>
+                <li class='star' title='Fair' data-value='2'>
+                    <i class='fa fa-star fa-fw'></i>
+                </li>
+                <li class='star' title='Good' data-value='3'>
+                    <i class='fa fa-star fa-fw'></i>
+                </li>
+                <li class='star' title='Excellent' data-value='4'>
+                    <i class='fa fa-star fa-fw'></i>
+                </li>
+                <li class='star' title='WOW!!!' data-value='5'>
+                    <i class='fa fa-star fa-fw'></i>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="metacol">
+      <div id="bookAuthors" class="stacked">
+          <h1 id="bookTitle" class="bookTitle" itemprop="name">
+                {{ book.name }}
+          </h1>
+          <span class="by smallText">by</span>
+          <span>
+          <a class="authorName" href=''>{{ book.author_id }}</a>
+          </span>
+          <span class="by smallText"> , {{ book.publish_date }}</span>
+          <span class="by smallText"> , {{ book.category }}</span>
+          <span class="by smallText"> , {{ book.country }}</span>
+      </div>
+      <div id="description" class="readable stacked" style="right:0">
+          <span id="freeTextContainer5022597030680236223">
+          {{ book.summary|truncatewords:30 }}
+          </span>
+          <span id="freeText5022597030680236223" style="display:none">
+          {{ book.summary }}
+          </span>
+          <a data-id="5022597030680236223" href="#" onclick="swapContent($(this));; return false;">more</a>
+      </div>
+    </div>
+{% endblock %}
