@@ -33,11 +33,13 @@
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Categories</a></li>
-					<li><a href="#">Authors</a></li>
-                    <li><a href="#">Books</a></li>
+                    {% block Bar %}
+                        <li class="active"><a href="{% url 'FreeBooks:home' %}">Home</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Categories</a></li>
+                        <li><a href="#">Authors</a></li>
+                        <li><a href="{% url 'FreeBooks:book_list' %}">Books</a></li>
+                    {% endblock Bar %}
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
