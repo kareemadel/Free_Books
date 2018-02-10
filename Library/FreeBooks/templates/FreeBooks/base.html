@@ -29,18 +29,19 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Logo</a>
+                <a class="navbar-brand" href="">Logo</a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     {% block Bar %}
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#">About</a></li>
-                        <li><a href="{% url 'FreeBooks:category_list' %}">Categories</a></li>
-                        <li><a href="#">Authors</a></li>
-                        <li><a href="{% url 'FreeBooks:book_list' %}">Books</a></li>
+                        <li><a href="">Home</a></li>
+                        <li><a href=" ">About</a></li>
+                        <li><a href=" ">Categories</a></li>
+                        <li><a href="">Authors</a></li>
+                        <li><a href=" ">Books</a></li>
                     {% endblock Bar %}
                 </ul>
+
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                 </ul>
@@ -50,27 +51,27 @@
     <div class="container-fluid text-center">
         <div class="row content">
             <div class="col-sm-2 sidenav">
-                <p><a href="#">Link</a></p>
-                <p><a href="#">Link</a></p>
-                <p><a href="#">Link</a></p>
+                <p><a href=" "></a></p>
+                <p><a href=" "></a></p>
+                <p><a href=" "></a></p>
             </div>
             <div class="col-sm-8 text-left">
                 {% block siteContent %}
 
                 {% endblock siteContent %}
             </div>
+                <div class="bio">
+                    {% block bioContent %}
+
+                    {% endblock bioContent %}
+                </div>
             <div class="col-sm-2 sidenav">
-                <div class="well">
-                    <p>ADS</p>
-                </div>
-                <div class="well">
-                    <p>ADS</p>
-                </div>
+
             </div>
         </div>
     </div>
     <footer class="container-fluid text-center">
-        <p>Footer Text</p>
+        <p></p>
     </footer>
 </body>
 

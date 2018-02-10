@@ -1,0 +1,35 @@
+{% extends "FreeBooks/base.html" %}
+{% load static %}
+{% block siteTitle %}
+{{ author.name }}
+{% endblock %}
+
+{% block Bar %}
+	<ul class="nav navbar-nav">
+		<li><a href="{% url 'FreeBooks:home' %}">Home</a></li>
+		<li><a href=" ">About</a></li>
+		<li><a href="{% url 'FreeBooks:category_list' %}">Categories</a></li>
+		<li class="active"><a href="{% url 'FreeBooks:AuthorList' %}">Authors</a></li>
+		<li><a href="{% url 'FreeBooks:book_list' %}">Books</a></li>
+	</ul>
+{% endblock Bar %}
+
+{% block cssFiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'FreeBooks/css/author_detail.css' %}" />
+{% endblock cssFiles %}
+
+{% block siteContent %}
+	<h1> {{ author.name }}</h1>
+	<p> <img class="resize" src=  "{{ author.pic.url }}" ></p>
+	<a href="" class="action-button shadow animate green">Follow</a>
+{% endblock %}
+
+
+{% block bioContent %}
+	<p>{{ author.bio }}</p>
+	<div class="info">
+		<p><strong>Books</strong><a href=" ">{{ Book.author }}</a></p>
+		<p><strong>birth of date</strong> {{ author.birth_date }}</p>
+		<p><strong>death of date</strong>{{ author.death_date }} </p>
+	</div>
+{% endblock %}

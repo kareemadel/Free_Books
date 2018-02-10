@@ -14,11 +14,13 @@
 
 
 {% block Bar %}
+  <ul class="nav navbar-nav">
     <li><a href="{% url 'FreeBooks:home' %}">Home</a></li>
-    <li><a href="#">About</a></li>
+    <li><a href=" ">About</a></li>
     <li><a href="{% url 'FreeBooks:category_list' %}">Categories</a></li>
-    <li><a href="#">Authors</a></li>
+    <li><a href="{% url 'FreeBooks:AuthorList' %}">Authors</a></li>
     <li class="active"><a href="{% url 'FreeBooks:book_list' %}">Books</a></li>
+  </ul>
 {% endblock Bar %}
 
 
@@ -62,7 +64,7 @@
           </h1>
           <span class="by smallText">by</span>
           <span>
-          <a class="authorName" href=''>{{ book.author_id }}</a>
+          <a class="authorName" href="{% url 'FreeBooks:AuthorDetail' book.author_id.author_id %}">{{ book.author_id }}</a>
           </span>
           <span class="by smallText"> , {{ book.publish_date }}</span>
           <span class="by smallText"> , {{ book.category }}</span>

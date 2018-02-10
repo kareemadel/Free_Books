@@ -6,15 +6,17 @@
 {% endblock siteTitle %}
 
 {% block Bar %}
+  <ul class="nav navbar-nav">
     <li><a href="{% url 'FreeBooks:home' %}">Home</a></li>
-    <li><a href="#">About</a></li>
+    <li><a href=" ">About</a></li>
     <li><a href="{% url 'FreeBooks:category_list' %}">Categories</a></li>
-    <li><a href="#">Authors</a></li>
-    <li class="active"><a href="#">Books</a></li>
+    <li><a href="{% url 'FreeBooks:AuthorList' %}">Authors</a></li>
+    <li class="active"><a href="{% url 'FreeBooks:book_list' %}">Books</a></li>
+  </ul>
 {% endblock Bar %}
 
 {% block siteContent %}
-
+    <h1>Books</h1>
     {% for book in book_list %}
         <ul>
             <li><a href="{% url 'FreeBooks:book_detail' book.book_id %}">{{ book.name }}</a></li>
@@ -22,5 +24,4 @@
     {% empty %}
         There are no books.
     {% endfor %}
-    
 {% endblock siteContent %}

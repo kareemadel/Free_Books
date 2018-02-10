@@ -1,0 +1,25 @@
+{% extends "FreeBooks/base.html" %}
+
+{% block Bar %}
+    <ul class="nav navbar-nav">
+        <li><a href="{% url 'FreeBooks:home' %}">Home</a></li>
+        <li><a href=" ">About</a></li>
+        <li><a href="{% url 'FreeBooks:category_list' %}">Categories</a></li>
+        <li class="active"><a href="{% url 'FreeBooks:AuthorList' %}">Authors</a></li>
+        <li><a href="{% url 'FreeBooks:book_list' %}">Books</a></li>
+    </ul>
+{% endblock Bar %}
+
+{% block siteContent %}
+    <h1>Authors</h1>
+    <ul>
+        {% for author in author_list %}
+            <li>
+            <a href="{% url 'FreeBooks:AuthorDetail' author.author_id %}">{{author.name}}</a>
+            </li>
+        {% empty %}
+            <li>Sorry, no authors in this list.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+

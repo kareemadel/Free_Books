@@ -6,16 +6,18 @@
 {% endblock siteTitle %}
 
 {% block Bar %}
+  <ul class="nav navbar-nav">
     <li><a href="{% url 'FreeBooks:home' %}">Home</a></li>
-    <li><a href="#">About</a></li>
-    <li class="active"><a href="#">Categories</a></li>
-    <li><a href="#">Authors</a></li>
+    <li><a href=" ">About</a></li>
+    <li class="active"><a href="{% url 'FreeBooks:category_list' %}">Categories</a></li>
+    <li><a href="{% url 'FreeBooks:AuthorList' %}">Authors</a></li>
     <li><a href="{% url 'FreeBooks:book_list' %}">Books</a></li>
+  </ul>
 {% endblock Bar %}
 
 {% block siteContent %}
-
     {% for category in category_list %}
+    <h1>Categories</h1>
         <ul>
             <li><a href="{% url 'FreeBooks:category_detail' category.category_id %}">{{ category.name }}</a></li>
         </ul>
