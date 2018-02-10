@@ -7,7 +7,7 @@
 {% block siteContent %}
   <h1> {{ author.name }}</h1>
   <p> <img class="resize" src=  "{{ author.pic.url }}" ></p>
-		<a href="#" class="action-button shadow animate green">Follow</a>
+		<a href="" class="action-button shadow animate green">Follow</a>
 
 
 {% endblock %}
@@ -19,3 +19,12 @@
 <p><strong>death of date</strong>{{ author.death_date }} </p>
 </div>
 {% endblock %}
+{% block Bar %}
+			<ul class="nav navbar-nav">
+							<li ><a href="{% url 'home' %}">Home</a></li>
+							<li><a href=" ">About</a></li>
+							<li><a href=" ">Categories</a></li>
+							<li class="active"><a href=" {% url 'AuthorList' %} ">Authors</a></li>
+							<li><a href=" ">Books</a></li>
+			</ul>
+			{% endblock Bar %}
