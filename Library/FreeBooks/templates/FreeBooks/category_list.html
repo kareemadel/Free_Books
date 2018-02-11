@@ -14,17 +14,23 @@
     <li><a href="{% url 'FreeBooks:book_list' %}">Books</a></li>
   </ul>
 {% endblock Bar %}
-
+{% block cssFiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'FreeBooks/css/author_list.css' %}" />
+{% endblock cssFiles %}
 {% block siteContent %}
+<div class="div">
+
     <h1>Categories</h1>
-    <ul>
+    <ul class="ul">
     {% for category in category_list %}
         {% if category.name != "-999" %}
-            <li><a href="{% url 'FreeBooks:category_detail' category.category_id %}">{{ category.name }}</a></li>
+            <li class="li"><a href="{% url 'FreeBooks:category_detail' category.category_id %}">{{ category.name }}</a></li>
         {% endif %}
     {% empty %}
         There are no categories.
     {% endfor %}
     </ul>
-    
+			</div>
+				
+
 {% endblock siteContent %}

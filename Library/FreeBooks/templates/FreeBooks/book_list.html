@@ -25,6 +25,7 @@
         <ul class="ul">
             <li class="li"><a href="{% url 'FreeBooks:book_detail' book.book_id %}">{{ book.title }}</a></li>
         </ul>
+							</div>
     {% empty %}
         There are no books.
     {% endfor %}
