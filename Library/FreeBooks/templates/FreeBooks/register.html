@@ -1,0 +1,43 @@
+{% extends "FreeBooks/base.html" %}
+{% load static %}
+
+{% block siteTitle %}
+    Welcome
+{% endblock siteTitle %}
+
+
+{% block cssFiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'FreeBooks/css/register.css' %}" />
+{% endblock cssFiles %}
+
+{% block siteContent %}
+    <form id="apply-form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in user_form %}
+            <label for="{{ field.name }}">{{ field.label }}:</label>
+            {{ field }}
+        {% endfor %}
+
+        {% for field in profile_form %}
+            {% if field.name == "birth_date" %}
+                <label for="{{ field.name }}">{{ field.label }}:</label>
+                {{ field }}
+                <ul id="{{ field.name }}">
+                    <li>yyyy-mm-dd</li>
+                </ul>
+            {% else %}
+                <label for="{{ field.name }}">{{ field.label }}:</label>
+                {{ field }}
+            {% endif %}
+        {% endfor %}
+        <div id="submit">
+            <button id="submitButton" type="submit">Submit</button>
+        </div>
+    </form>
+{% endblock siteContent %}
+
+{% block jsFiles %}
+    <script type="text/javascript" src="{% static 'FreeBooks/js/register.js' %}"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
+{% endblock jsFiles %}

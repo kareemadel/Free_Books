@@ -19,7 +19,7 @@
     <h1>Books</h1>
     {% for book in book_list %}
         <ul>
-            <li><a href="{% url 'FreeBooks:book_detail' book.book_id %}">{{ book.name }}</a></li>
+            <li><a href="{% url 'FreeBooks:book_detail' book.book_id %}">{{ book.title }}</a></li>
         </ul>
     {% empty %}
         There are no books.

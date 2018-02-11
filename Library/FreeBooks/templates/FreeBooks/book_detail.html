@@ -2,14 +2,13 @@
 {% load static %}
 
 {% block siteTitle %}
-    {{ book.name }} - {{ book.author_id.name }}
+    {{ book.title }} - {{ book.author.name }}
 {% endblock siteTitle %}
 
 
 {% block cssFiles %}
     <link rel="stylesheet" type="text/css" href="{% static 'FreeBooks/css/book_detail.css' %}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script type="text/javascript" src="{% static 'FreeBooks/js/book_detail.js' %}"></script>
 {% endblock cssFiles %}
 
 
@@ -27,7 +26,7 @@
 {% block siteContent %}
     <div class="imageColumn">
         <div class="bookCover">        
-            <a href="{{ book.pic.url }}"><img id="coverImage" alt="{{ book.name }}" src="{{ book.pic.url }}"></a>
+            <a href="{{ book.pic.url }}"><img id="coverImage" alt="{{ book.title }}" src="{{ book.pic.url }}"></a>
         </div>
         <div class="buttons">
             <button type="button" class="btn btn-primary">Read</button>
@@ -60,11 +59,11 @@
     <div class="metacol">
       <div id="bookAuthors" class="stacked">
           <h1 id="bookTitle" class="bookTitle" itemprop="name">
-                {{ book.name }}
+                {{ book.title }}
           </h1>
           <span class="by smallText">by</span>
           <span>
-          <a class="authorName" href="{% url 'FreeBooks:AuthorDetail' book.author_id.author_id %}">{{ book.author_id }}</a>
+          <a class="authorName" href="{% url 'FreeBooks:AuthorDetail' book.author.author_id %}">{{ book.author }}</a>
           </span>
           <span class="by smallText"> , {{ book.publish_date }}</span>
           <span class="by smallText"> , {{ book.category }}</span>
@@ -81,3 +80,7 @@
       </div>
     </div>
 {% endblock %}
+
+{% block jsFiles %}
+    <script type="text/javascript" src="{% static 'FreeBooks/js/book_detail.js' %}"></script>
+{% endblock jsFiles %}
