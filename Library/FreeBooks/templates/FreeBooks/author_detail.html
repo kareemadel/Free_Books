@@ -21,15 +21,19 @@
 {% block siteContent %}
 	<h1> {{ author.name }}</h1>
 	<p> <img class="resize" src=  "{{ author.pic.url }}" ></p>
-	<a href="" class="action-button shadow animate green">Follow</a>
+	<button id="follow-button">+ Follow</button>
 {% endblock %}
 
 
 {% block bioContent %}
 	<p>{{ author.bio }}</p>
 	<div class="info">
-		<p><strong>Books</strong><a href=" ">{{ Book.author }}</a></p>
+		<p><strong>Books</strong><a href="">{{ book.name }}</a></p>
+
 		<p><strong>birth of date</strong> {{ author.birth_date }}</p>
 		<p><strong>death of date</strong>{{ author.death_date }} </p>
 	</div>
 {% endblock %}
+{% block jsFiles %}
+    <script type="text/javascript" src="{% static 'FreeBooks/js/author_detail.js' %}"></script>
+{% endblock jsFiles %}
