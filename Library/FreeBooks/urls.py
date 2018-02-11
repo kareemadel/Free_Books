@@ -1,5 +1,6 @@
 from django.urls import path
 from .views import home_view, book_view, book_list_view, category_list_view, category_view, authorsListView, authorsDetailView, create_profile
+from django.contrib.auth import views as auth_views
 
 app_name = 'FreeBooks'
 
@@ -12,4 +13,6 @@ urlpatterns = [
     path('authors/', authorsListView.as_view(), name='AuthorList'),
     path('authors/<int:pk>', authorsDetailView.as_view(), name='AuthorDetail'),
     path('register/', create_profile, name='register'),
+    path('login/', auth_views.LoginView.as_view(template_name='FreeBooks/registration/login.html'), name='login'),
+    path('logout/', auth_views.logout, {'next_page': '/'}, name='logout'),
 ]

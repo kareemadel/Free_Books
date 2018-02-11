@@ -16,13 +16,15 @@
 {% endblock Bar %}
 
 {% block siteContent %}
-    {% for category in category_list %}
     <h1>Categories</h1>
-        <ul>
+    <ul>
+    {% for category in category_list %}
+        {% if category.name != "-999" %}
             <li><a href="{% url 'FreeBooks:category_detail' category.category_id %}">{{ category.name }}</a></li>
-        </ul>
+        {% endif %}
     {% empty %}
         There are no categories.
     {% endfor %}
+    </ul>
     
 {% endblock siteContent %}

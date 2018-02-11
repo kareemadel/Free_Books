@@ -69,6 +69,7 @@ class Profile(models.Model):
     rating = models.ManyToManyField(Book, through='Rate', related_name='rated_by')
     reading = models.ManyToManyField(Book, through='Read', related_name='read_by')
     wish = models.ManyToManyField(Book, through='WishList', related_name='wished_by')
+    follows = models.ManyToManyField(Author, through='Follower', related_name='followed_by')
 
     def __str__(self):
         return self.user.first_name
@@ -119,3 +120,17 @@ class WishList(models.Model):
 
     def __str__(self):
         pass
+
+class Follower(models.Model):
+
+    class Meta:
+        verbose_name = "Follower"
+        verbose_name_plural = "Followers"
+
+    follow_id = models.AutoField("Follow ID", primary_key=True)
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE, verbose_name="User")
+    author = models.ForeignKey(Author, on_delete=models.CASCADE, verbose_name="Author")
+
+    def __str__(self):
+        pass
+    

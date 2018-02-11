@@ -62,7 +62,7 @@ def create_profile(request):
     else:
         user_form = UserForm()
         profile_form = ProfileForm()
-    return render(request, 'FreeBooks/register.html', {
+    return render(request, 'FreeBooks/registration/register.html', {
         'user_form': user_form,
         'profile_form': profile_form
     })

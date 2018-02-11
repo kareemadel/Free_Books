@@ -1,0 +1,27 @@
+{% extends "FreeBooks/base.html" %}
+{% load static %}
+
+{% block siteTitle %}
+    Login
+{% endblock siteTitle %}
+
+
+{% block cssFiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'FreeBooks/css/login.css' %}" />
+{% endblock cssFiles %}
+
+{% block siteContent %}
+    <form id="apply-form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+         {{ form.as_p }}
+        <div id="submit">
+            <button id="submitButton" type="submit">Submit</button>
+        </div>
+    </form>
+{% endblock siteContent %}
+
+{% block jsFiles %}
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="{% static 'FreeBooks/js/register.js' %}"></script>
+{% endblock jsFiles %}

@@ -11,8 +11,6 @@
     <meta charset="utf-8">
     <meta name="FreeBook">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'FreeBooks/css/base.css' %}" />
     {% block cssFiles %}
         
@@ -34,16 +32,21 @@
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     {% block Bar %}
-                        <li><a href="">Home</a></li>
-                        <li><a href=" ">About</a></li>
-                        <li><a href=" ">Categories</a></li>
-                        <li><a href="">Authors</a></li>
-                        <li><a href=" ">Books</a></li>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Categories</a></li>
+                        <li><a href="#">Authors</a></li>
+                        <li><a href="#">Books</a></li>
                     {% endblock Bar %}
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    {% if user.is_authenticated %}
+                        <li id="logoutIcon"><a href="{% url 'FreeBooks:logout' %}"><span class="glyphicon glyphicon-log-out"></span>Log Out</a></li>
+                    {% else %}
+                        <li id="loginIcon"><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                        <li id="registerIcon"><a href="{% url 'FreeBooks:register' %}"><span class="glyphicon glyphicon-sign-up"></span>Signup</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
@@ -73,6 +76,13 @@
     <footer class="container-fluid text-center">
         <p></p>
     </footer>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+{% block jsFiles %}
+
+{% endblock jsFiles %}
 </body>
 
 </html>
