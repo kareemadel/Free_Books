@@ -14,12 +14,16 @@
     <li class="active"><a href="{% url 'FreeBooks:book_list' %}">Books</a></li>
   </ul>
 {% endblock Bar %}
-
+{% block cssFiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'FreeBooks/css/author_list.css' %}" />
+{% endblock cssFiles %}
 {% block siteContent %}
+<div class="div">
+
     <h1>Books</h1>
     {% for book in book_list %}
-        <ul>
-            <li><a href="{% url 'FreeBooks:book_detail' book.book_id %}">{{ book.title }}</a></li>
+        <ul class="ul">
+            <li class="li"><a href="{% url 'FreeBooks:book_detail' book.book_id %}">{{ book.title }}</a></li>
         </ul>
     {% empty %}
         There are no books.
