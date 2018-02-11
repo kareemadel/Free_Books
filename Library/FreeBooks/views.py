@@ -66,3 +66,27 @@ def create_profile(request):
         'user_form': user_form,
         'profile_form': profile_form
     })
+
+class Search(ListView):
+
+    class Meta:
+        verbose_name = "Search"
+        verbose_name_plural = "Searches"
+
+    template_name = 'FreeBooks/search.html'
+    context_object_name = 'character_series_list'
+    model = Book
+
+    def get_context_data(self, **kwargs):
+        q = self.request.GET.get('q', '')
+        context = super().get_context_data(**kwargs)
+        print(Book.objects.filter(title__icontains=q))
+        context.update({
+            'book_list': Book.objects.filter(title__icontains=q),
+            'author_list': Author.objects.filter(name__icontains=q),
+        })
+        return context
+
+    def __str__(self):
+        pass
+    

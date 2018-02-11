@@ -11,22 +11,25 @@
     <li><a href=" ">About</a></li>
     <li><a href="{% url 'FreeBooks:category_list' %}">Categories</a></li>
     <li><a href="{% url 'FreeBooks:AuthorList' %}">Authors</a></li>
-    <li class="active"><a href="{% url 'FreeBooks:book_list' %}">Books</a></li>
+    <li><a href="{% url 'FreeBooks:book_list' %}">Books</a></li>
   </ul>
 {% endblock Bar %}
-{% block cssFiles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'FreeBooks/css/author_list.css' %}" />
-{% endblock cssFiles %}
-{% block siteContent %}
-<div class="div">
 
+{% block siteContent %}
     <h1>Books</h1>
     {% for book in book_list %}
-        <ul class="ul">
-            <li class="li"><a href="{% url 'FreeBooks:book_detail' book.book_id %}">{{ book.title }}</a></li>
+        <ul>
+            <li><a href="{% url 'FreeBooks:book_detail' book.book_id %}">{{ book }}</a></li>
         </ul>
-        </div>
     {% empty %}
-        There are no books.
+        empty
+    {% endfor %}
+    <h1>Authors</h1>
+    {% for author in author_list %}
+        <ul>
+            <li><a href="{% url 'FreeBooks:AuthorDetail' author.author_id %}">{{ author }}</a></li>
+        </ul>
+    {% empty %}
+        empty
     {% endfor %}
 {% endblock siteContent %}

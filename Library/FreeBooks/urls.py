@@ -1,5 +1,5 @@
-from django.urls import path
-from .views import home_view, book_view, book_list_view, category_list_view, category_view, authorsListView, authorsDetailView, create_profile
+from django.urls import path, re_path
+from .views import home_view, book_view, book_list_view, category_list_view, category_view, authorsListView, authorsDetailView, create_profile, Search
 from django.contrib.auth import views as auth_views
 
 app_name = 'FreeBooks'
@@ -15,4 +15,5 @@ urlpatterns = [
     path('register/', create_profile, name='register'),
     path('login/', auth_views.LoginView.as_view(template_name='FreeBooks/registration/login.html'), name='login'),
     path('logout/', auth_views.logout, {'next_page': '/'}, name='logout'),
+    re_path(r'^search$', Search.as_view(), name='search_result'),
 ]
