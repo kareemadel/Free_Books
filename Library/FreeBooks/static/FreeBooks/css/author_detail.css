@@ -1,4 +1,19 @@
 /* Remove the navbar's default margin-bottom and rounded borders */
+#follow-button {
+  color: #3399FF;
+  font-family: "Helvetica";
+  font-size: 10pt;
+  background-color: #ffffff;
+  border: 1px solid;
+  border-color: #3399FF;
+  border-radius: 3px;
+  width: 85px;
+  height: 30px;
+  position: absolute;
+  top: 400px;
+  left: 20px;
+  cursor: hand;
+}
 img.resize {
   width:300px;
   height:300px;
@@ -19,7 +34,7 @@ img.resize {
 .info{
     position: fixed;
             bottom: 300px;
-            right: 500px;
+            right: 450px;
             width: 400px;
             height: 1px;
 }

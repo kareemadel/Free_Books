@@ -1,4 +1,5 @@
 {% extends "FreeBooks/base.html" %}
+{% load static %}
 
 {% block Bar %}
     <ul class="nav navbar-nav">
@@ -9,17 +10,20 @@
         <li><a href="{% url 'FreeBooks:book_list' %}">Books</a></li>
     </ul>
 {% endblock Bar %}
-
+{% block cssFiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'FreeBooks/css/author_list.css' %}" />
+{% endblock cssFiles %}
 {% block siteContent %}
+<div class="div">
     <h1>Authors</h1>
-    <ul>
+    <ul class="ul">
         {% for author in author_list %}
-            <li>
+            <li class="li">
             <a href="{% url 'FreeBooks:AuthorDetail' author.author_id %}">{{author.name}}</a>
             </li>
         {% empty %}
             <li>Sorry, no authors in this list.</li>
         {% endfor %}
     </ul>
+			</div>
 {% endblock %}
-
