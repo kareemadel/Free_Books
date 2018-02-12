@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import TemplateView, DetailView, ListView
 from .models import Book, Category, Author, Profile
 from django.forms import ModelForm
@@ -100,3 +100,15 @@ class category_books_list(ListView):
     template_name = 'FreeBooks/category_books_list.html'
     def get_queryset(self, **kwargs):
         return Book.objects.filter(category__pk=self.kwargs['pk'])
+
+class user_profile(TemplateView):
+    template_name = 'FreeBooks/user.html'
+    model = Profile
+
+    def get(self, request, **kwargs):
+        current_user = self.request.user.id
+        if (current_user is None):
+            return redirect('FreeBooks:home')
+        else:
+            user = Profile.objects.get(user_id=current_user)
+            return render(self.request, 'FreeBooks/user.html', {'profile': user})

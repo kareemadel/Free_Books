@@ -5,15 +5,10 @@
     All Authors
 {% endblock siteTitle %}
 
-{% block Bar %}
-  <ul class="nav navbar-nav">
-    <li><a href="{% url 'FreeBooks:home' %}">Home</a></li>
-    <li><a href=" ">About</a></li>
-    <li><a href="{% url 'FreeBooks:category_list' %}">Categories</a></li>
-    <li><a href="{% url 'FreeBooks:AuthorList' %}">Authors</a></li>
+{% block bar_books %}
     <li class="active"><a href="{% url 'FreeBooks:book_list' %}">Books</a></li>
-  </ul>
-{% endblock Bar %}
+{% endblock bar_books %}
+
 {% block cssFiles %}
     <link rel="stylesheet" type="text/css" href="{% static 'FreeBooks/css/author_list.css' %}" />
 {% endblock cssFiles %}

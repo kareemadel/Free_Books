@@ -12,15 +12,9 @@
 {% endblock cssFiles %}
 
 
-{% block Bar %}
-  <ul class="nav navbar-nav">
-    <li><a href="{% url 'FreeBooks:home' %}">Home</a></li>
-    <li><a href=" ">About</a></li>
-    <li><a href="{% url 'FreeBooks:category_list' %}">Categories</a></li>
-    <li><a href="{% url 'FreeBooks:AuthorList' %}">Authors</a></li>
+{% block bar_books %}
     <li class="active"><a href="{% url 'FreeBooks:book_list' %}">Books</a></li>
-  </ul>
-{% endblock Bar %}
+{% endblock bar_books %}
 
 
 {% block siteContent %}
@@ -66,7 +60,7 @@
           <a class="authorName" href="{% url 'FreeBooks:AuthorDetail' book.author.author_id %}">{{ book.author }}</a>
           </span>
           <span class="by smallText"> , {{ book.publish_date }}</span>
-          <span class="by smallText"> , {{ book.category }}</span>
+          <span class="by smallText"> , <a href="{% url 'FreeBooks:category_books_list' book.category.category_id %}">{{ book.category }}</a></span>
           <span class="by smallText"> , {{ book.country }}</span>
       </div>
       <div id="description" class="readable stacked" style="right:0">

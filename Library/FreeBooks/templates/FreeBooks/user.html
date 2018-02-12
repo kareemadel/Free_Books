@@ -1,0 +1,51 @@
+{% extends "FreeBooks/base.html" %}
+{% load static %}
+
+{% block siteTitle %}
+    {{ user.first_name }} - {{ user.last_name }}
+{% endblock siteTitle %}
+
+
+{% block cssFiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'FreeBooks/css/user.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock cssFiles %}
+
+
+{% block bar_profile %}
+        <li class="active"><a href="{% url 'FreeBooks:user_profile' %}">Profile</a></li>
+{% endblock bar_profile %}
+
+
+{% block siteContent %}
+    <div class="imageColumn">
+        <div class="ProfilePicture">        
+            <a href="{{ profile.pic.url }}"><img id="profilePic" alt="{{ profile.title }}" src="{{ profile.pic.url }}"></a>
+        </div>
+    </div>
+    
+    <div class="metacol">
+      <div id="userData" class="stacked">
+          <h1 id="userName" itemprop="name">
+                {{ user.first_name }} {{ user.last_name }}
+          </h1>
+          <span class="by smallText">{{ profile.birth_date }}</span>
+          {% if profile.favourite_category.name != "-999" %}
+          <span class="by smallText"> , <a href="{% url 'FreeBooks:category_books_list' profile.favourite_category.category_id %}">{{ profile.favourite_category }}</a></span>
+          {% endif %}
+      </div>
+      <div id="userBio" class="readable stacked" style="right:0">
+          <span id="freeTextContainer5022597030680236223">
+          {{ profile.bio|truncatewords:30 }}
+          </span>
+          <span id="freeText5022597030680236223" style="display:none">
+          {{ profile.bio }}
+          </span>
+          <a data-id="5022597030680236223" href="#" onclick="swapContent($(this));; return false;">more</a>
+      </div>
+    </div>
+{% endblock %}
+
+{% block jsFiles %}
+    <script type="text/javascript" src="{% static 'FreeBooks/js/user.js' %}"></script>
+{% endblock jsFiles %}

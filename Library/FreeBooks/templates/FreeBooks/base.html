@@ -31,13 +31,26 @@
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    {% block Bar %}
-                        <li><a href="#">Home</a></li>
+                    {% block bar_home %}
+                        <li><a href="{% url 'FreeBooks:home' %}">Home</a></li>
+                    {% endblock bar_home %}
+                    {% block bar_about %}
                         <li><a href="#">About</a></li>
-                        <li><a href="#">Categories</a></li>
-                        <li><a href="#">Authors</a></li>
-                        <li><a href="#">Books</a></li>
-                    {% endblock Bar %}
+                    {% endblock bar_about %}
+                    {% block bar_categories %}
+                        <li><a href="{% url 'FreeBooks:category_list' %}">Categories</a></li>
+                    {% endblock bar_categories %}
+                    {% block bar_authors %}
+                        <li ><a href="{% url 'FreeBooks:AuthorList' %}">Authors</a></li>
+                    {% endblock bar_authors %}
+                    {% block bar_books %}
+                        <li><a href="{% url 'FreeBooks:book_list' %}">Books</a></li>
+                    {% endblock bar_books %}
+                    {% block bar_profile %}
+                        {% if user.is_authenticated %}
+                            <li><a href="{% url 'FreeBooks:user_profile' %}">Profile</a></li>
+                        {% endif %}
+                    {% endblock bar_profile %}
                 </ul>
                 <ul class="nav navbar-nav navbar-right">                    
                     {% if user.is_authenticated %}
