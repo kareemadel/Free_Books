@@ -24,10 +24,6 @@ class book_list_view(ListView):
 class category_list_view(ListView):
     model = Category
 
-
-class category_view(DetailView):
-    model = Category
-
 class authorsListView(ListView):
     model=Author
 
@@ -89,4 +85,18 @@ class Search(ListView):
 
     def __str__(self):
         pass
-    
+
+class book_author_list(ListView):
+    model = Book
+    context_object_name = 'book_author_list'
+    template_name = 'FreeBooks/book_author_list.html'
+    def get_queryset(self, **kwargs):
+        return Book.objects.filter(author__pk=self.kwargs['pk'])
+
+
+class category_books_list(ListView):
+    model = Book
+    context_object_name = 'category_books_list'
+    template_name = 'FreeBooks/category_books_list.html'
+    def get_queryset(self, **kwargs):
+        return Book.objects.filter(category__pk=self.kwargs['pk'])
