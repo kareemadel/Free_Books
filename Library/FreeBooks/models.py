@@ -65,7 +65,7 @@ class Profile(models.Model):
     birth_date = models.DateField("Date of Birth", null=True, blank=True)
     pic = models.ImageField("Profile Picture", blank=True, upload_to='user_profiles')
     bio = models.TextField("Bio", blank=True)
-    favourite_category = models.ForeignKey(Category, related_name="favoed_by", on_delete=models.CASCADE, verbose_name="Favorite Category")
+    favourite_category = models.ManyToManyField(Category, through='FavouriteCategory', related_name='favored_by')
     rating = models.ManyToManyField(Book, through='Rate', related_name='rated_by')
     reading = models.ManyToManyField(Book, through='Read', related_name='read_by')
     wish = models.ManyToManyField(Book, through='WishList', related_name='wished_by')
@@ -82,14 +82,14 @@ class Rate(models.Model):
         verbose_name_plural = "Rates"
         unique_together = (('user', 'book'),)
 
-    rate_id = models.AutoField("Read ID", primary_key=True)
+    rate_id = models.AutoField("Rate ID", primary_key=True)
     user = models.ForeignKey(Profile, on_delete=models.CASCADE, verbose_name="User")
     book = models.ForeignKey(Book, on_delete=models.CASCADE, verbose_name="Book")
     score = models.PositiveSmallIntegerField()
 
     def __str__(self):
         return self.rate_id
-    
+
 
 
 class Read(models.Model):
@@ -114,22 +114,39 @@ class WishList(models.Model):
         verbose_name_plural = "WishLists"
         unique_together = (('user', 'book'),)
 
-    wish_id = models.AutoField("Read ID", primary_key=True)
+    wish_id = models.AutoField("Wish ID", primary_key=True)
     user = models.ForeignKey(Profile, on_delete=models.CASCADE, verbose_name="User")
     book = models.ForeignKey(Book, on_delete=models.CASCADE, verbose_name="Book")
 
     def __str__(self):
         pass
 
+
 class Follower(models.Model):
 
     class Meta:
         verbose_name = "Follower"
         verbose_name_plural = "Followers"
+        unique_together = (('user', 'author'),)
 
     follow_id = models.AutoField("Follow ID", primary_key=True)
     user = models.ForeignKey(Profile, on_delete=models.CASCADE, verbose_name="User")
     author = models.ForeignKey(Author, on_delete=models.CASCADE, verbose_name="Author")
+
+    def __str__(self):
+        pass
+
+
+class FavouriteCategory(models.Model):
+
+    class Meta:
+        verbose_name = "FavouriteCategory"
+        verbose_name_plural = "FavouriteCategories"
+        unique_together = (('user', 'category'),)
+
+    favorite_id = models.AutoField("Favorite ID", primary_key=True)
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE, verbose_name="User")
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name="Category")
 
     def __str__(self):
         pass
