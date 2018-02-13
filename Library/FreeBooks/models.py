@@ -13,7 +13,7 @@ class Author(models.Model):
 
     author_id = models.AutoField("Author ID", primary_key=True)
     name = models.CharField("Author name", max_length=50)
-    pic = models.ImageField("Author Picture", blank=True)
+    pic = models.ImageField("Author Picture", blank=True, upload_to="author_pic")
     bio = models.TextField("Bio", blank=True)
     birth_date = models.DateField("Date of Birth", null=True, blank=True)
     death_date = models.DateField("Date of Death", null=True, blank=True)
@@ -29,6 +29,7 @@ class Category(models.Model):
 
     category_id = models.AutoField("Category", primary_key=True)
     name = models.CharField("Category Name", max_length=50)
+    pic = models.ImageField("Categor Cover", blank=True, upload_to='category_cover')
 
     def __str__(self):
         return self.name
@@ -47,7 +48,7 @@ class Book(models.Model):
     publish_date = models.DateField("Published at", null=True, blank=True)
     country = models.CharField("Country", max_length=50, blank=True)
     link = models.URLField("Link", blank=True)
-    pic = models.ImageField("Book Cover", blank=True)
+    pic = models.ImageField("Book Cover", blank=True, upload_to='book_cover')
     summary = models.TextField("Summary", blank=True)
 
     def __str__(self):
@@ -150,4 +151,3 @@ class FavouriteCategory(models.Model):
 
     def __str__(self):
         pass
-    
