@@ -30,9 +30,11 @@
                 {{ user.first_name }} {{ user.last_name }}
           </h1>
           <span class="by smallText">{{ profile.birth_date }}</span>
-          {% if profile.favourite_category.name != "-999" %}
-          <span class="by smallText"> , <a href="{% url 'FreeBooks:category_books_list' profile.favourite_category.category_id %}">{{ profile.favourite_category }}</a></span>
-          {% endif %}
+          {% for category in favourite_categories %}
+            {% if category.name != "-999" %}
+            <span class="by smallText"> , <a href="{% url 'FreeBooks:category_books_list' category.category_id %}">{{ category }}</a></span>
+            {% endif %}
+          {% endfor %}
       </div>
       <div id="userBio" class="readable stacked" style="right:0">
           <span id="freeTextContainer5022597030680236223">

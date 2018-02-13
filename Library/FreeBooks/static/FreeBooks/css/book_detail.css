@@ -111,6 +111,7 @@
 
 
 
+
 /* Rating Star Widgets Style */
 
 .rating-stars ul {
@@ -126,6 +127,7 @@
 }
 
 
+
 /* Idle State of the stars */
 
 .rating-stars ul>li.star>i.fa {
@@ -136,11 +138,13 @@
 }
 
 
+
 /* Hover state of the stars */
 
 .rating-stars ul>li.star.hover>i.fa {
     color: #FFCC36;
 }
+
 
 
 /* Selected state of the stars */
@@ -155,3 +159,30 @@
     margin-right: 0px;
     /*margin-top: 20px;*/
 }
+
+
+/* Remove the navbar's default margin-bottom and rounded borders */
+
+.funcBtn {
+    font-family: "Helvetica";
+    font-size: 10pt;
+    border: 1px solid;
+    border-radius: 3px;
+    width: 100px;
+    height: 30px;
+    cursor: hand;
+}
+
+.inactive_btn {
+    background-color: #ffffff;
+    color: #3399FF;
+    border-color: #3399FF;
+}
+
+.active_btn {
+    background-color: #3CB371;
+    color: #F5FFFA;
+    border-color: #3CB371;
+}
+
+
