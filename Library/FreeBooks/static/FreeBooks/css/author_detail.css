@@ -1,105 +1,141 @@
+.Container {
+    margin-bottom: 10px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 20px;
+}
+
+#authorPic {
+    cursor: pointer;
+    display: block;
+    max-height: 242.344px;
+    line-height: 18px;
+    margin-bottom: 10px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    max-width: 150px;
+    text-align: center;
+    width: auto;
+    height: auto;
+    word-wrap: break-word;
+}
+
+
+#biography {
+    color: rgb(24, 24, 24);
+    display: block;
+    font-size: 14px;
+    height: 140px;
+    line-height: 21px;
+    margin-bottom: 10px;
+    right: 0px;
+    text-align: left;
+    width: 455px;
+    word-wrap: break-word;
+}
+
+#freeTextContainer5022597030680236223 {
+    color: rgb(24, 24, 24);
+    display: inline;
+    font-size: 14px;
+    height: auto;
+    line-height: 21px;
+    text-align: left;
+    width: auto;
+    word-wrap: break-word;
+    break-word.leftContainer
+}
+
+#freeText5022597030680236223 {
+    color: rgb(24, 24, 24);
+    display: none;
+    font-size: 14px;
+    height: auto;
+    line-height: 21px;
+    text-align: left;
+    width: auto;
+    word-wrap: break-word;
+    break-word.leftContainer
+}
+
+#5022597030680236223 {
+    color: rgb(0, 99, 93);
+    cursor: pointer;
+    display: inline;
+    font-size: 14px;
+    height: auto;
+    line-height: 21px;
+    text-align: left;
+    text-decoration-color: rgb(0, 99, 93);
+    text-decoration-line: none;
+    text-decoration-style: solid;
+    width: auto;
+    word-wrap: break-word;
+    break-word.leftContainer
+}
+
+
+.imageColumn {
+    color: rgb(24, 24, 24);
+    #181818body display: block;
+    float: left;
+    font-size: 12px;
+    line-height: 18px;
+    margin-bottom: 10px;
+    margin-left: 0px;
+    margin-right: 20px;
+    margin-top: 10px;
+    text-align: center;
+    width: 150px;
+    word-wrap: break-word;
+    break-word.leftContainer
+}
+
+.metacol {
+    color: rgb(24, 24, 24);
+    display: block;
+    float: left;
+    font-size: 12px;
+    height: 383.958px;
+    line-height: 18px;
+    margin-bottom: 10px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    text-align: left;
+    left.mainContent center.mainContentContainer width: 455px;
+    word-wrap: break-word;
+}
+
+.buttons {
+    margin-bottom: 10px;
+    margin-left: 0px;
+    margin-right: 0px;
+    /*margin-top: 20px;*/
+}
+
+
 /* Remove the navbar's default margin-bottom and rounded borders */
-#follow-button {
-  color: #3399FF;
-  font-family: "Helvetica";
-  font-size: 10pt;
-  background-color: #ffffff;
-  border: 1px solid;
-  border-color: #3399FF;
-  border-radius: 3px;
-  width: 85px;
-  height: 30px;
-  position: absolute;
-  top: 400px;
-  left: 20px;
-  cursor: hand;
-}
-img.resize {
-  width:300px;
-  height:300px;
-}
-.navbar {
-    margin-bottom: 0;
-    border-radius: 0;
+
+.funcBtn {
+    font-family: "Helvetica";
+    font-size: 10pt;
+    border: 1px solid;
+    border-radius: 3px;
+    width: 100px;
+    height: 30px;
+    cursor: hand;
 }
 
-.bio{
-     height:100px;
-        position: fixed;
-    bottom: 400px;
-    right: 350px;
-    width: 400px;
-    height: 50px;
-}
-.info{
-    position: fixed;
-            bottom: 300px;
-            right: 450px;
-            width: 400px;
-            height: 1px;
-}
-/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-
-.row.content {
-    height: 450px
+.inactive_btn {
+    background-color: #ffffff;
+    color: #3399FF;
+    border-color: #3399FF;
 }
 
-
-/* Set gray background color and 100% height */
-
-.sidenav {
-    padding-top: 20px;
-    background-color: #f1f1f1;
-    height: 100%;
-}
-
-
-/* Set black background color, white text and some padding */
-.animate
-{
-    transition: all 0.1s;
-    -webkit-transition: all 0.1s;
-}
-.action-button
-{
-    position: relative;
-    padding: 10px 40px;
-  margin: 0px 10px 10px 0px;
-  float: left;
-    border-radius: 10px;
-    font-family: 'Pacifico', cursive;
-    font-size: 25px;
-    color: #FFF;
-    text-decoration: none;
-}
-.green
-{
-    background-color: #82BF56;
-    border-bottom: 5px solid #669644;
-    text-shadow: 0px -2px #669644;
-}
-
-.action-button:active
-{
-    transform: translate(0px,5px);
-  -webkit-transform: translate(0px,5px);
-    border-bottom: 1px solid;
-}
-footer {
-    background-color: #555;
-    color: white;
-    padding: 20px;
-}
-
-
-/* On small screens, set height to 'auto' for sidenav and grid */
-
-@media screen and (max-width: 767px) {
-    .sidenav {
-        height: auto;
-        padding: 15px;
-    }
-    .row.content {
-        height: auto;
-    }
+.active_btn {
+    background-color: #3CB371;
+    color: #F5FFFA;
+    border-color: #3CB371;
 }

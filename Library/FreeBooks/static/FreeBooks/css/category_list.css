@@ -1,11 +1,11 @@
-.authors {
+.categories {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;   
 }
 
-.authorPic {
+.categoryCover {
     max-height: 200px;
     max-width: 200px;
     margin-top: 50px;   
@@ -14,7 +14,7 @@
     margin-right: 60px;
 }
 
-.aauthor {
+.acategory {
     display: flex;
     flex-direction: row;
 }
