@@ -89,7 +89,7 @@ class Rate(models.Model):
     score = models.PositiveSmallIntegerField()
 
     def __str__(self):
-        return self.rate_id
+        return str(self.rate_id)
 
 
 
@@ -105,7 +105,7 @@ class Read(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE, verbose_name="Book")
 
     def __str__(self):
-        return self.read_id
+        return str(self.read_id)
 
 
 class WishList(models.Model):
@@ -120,7 +120,7 @@ class WishList(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE, verbose_name="Book")
 
     def __str__(self):
-        pass
+        return str(self.wish_id)
 
 
 class Follower(models.Model):
@@ -135,7 +135,7 @@ class Follower(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE, verbose_name="Author")
 
     def __str__(self):
-        pass
+        return str(self.follow_id)
 
 
 class FavouriteCategory(models.Model):
@@ -150,4 +150,4 @@ class FavouriteCategory(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name="Category")
 
     def __str__(self):
-        pass
+        return str(self.favorite_id)

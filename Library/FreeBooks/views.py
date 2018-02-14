@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import TemplateView, DetailView, ListView
-from .models import Book, Category, Author, Profile, Read, Rate, WishList
+from .models import Book, Category, Author, Profile, Read, Rate, WishList, Follower
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -22,14 +22,15 @@ class book_view(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         current_user = self.request.user.id
+        book = self.kwargs['pk']
 
         user = Profile.objects.filter(user_id=current_user)
         user = len(user) and user[0]
 
-        read = Read.objects.filter(user_id=current_user)
+        read = Read.objects.filter(user_id=current_user, book_id=book)
         read = len(read) and read[0]
 
-        rate = Rate.objects.filter(user_id=current_user)
+        rate = Rate.objects.filter(user_id=current_user, book_id=book)
         rate = len(rate) and rate[0].score
         rate_list = []
         rate_title = ('Poor', 'Fair', 'Good', 'Excellent', 'WOW!!!')
@@ -38,7 +39,7 @@ class book_view(DetailView):
         for j in range(5 - rate):
             rate_list.append(('star', rate_title[j + rate], j + rate + 1))
 
-        wish = WishList.objects.filter(user_id=current_user)
+        wish = WishList.objects.filter(user_id=current_user, book_id=book)
         wish = len(wish) and wish[0]
 
         context.update({
@@ -50,7 +51,6 @@ class book_view(DetailView):
 
     def post(self, request, **kwargs):
         body = json.loads(self.request.body.decode("utf-8"))
-        print(body)
         for field in body:
             if field == 'rate':
                 Rate.objects.update_or_create(user_id=self.request.user.id, book_id=self.kwargs['pk'], defaults={'score': body[field]})
@@ -83,15 +83,85 @@ class book_view(DetailView):
 
 class book_list_view(ListView):
     model = Book
+    paginate_by = 4
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        current_user = self.request.user.id
+
+        user = Profile.objects.filter(user_id=current_user)
+        user = len(user) and user[0]
+        if user:
+            reads = user.reading.all()
+            wishes = user.wish.all()
+            rates = user.rating.all()
+        for book in context['book_list']:
+            book.read = user and book in reads
+            book.wish = user and book in wishes
+            rate = user and Rate.objects.filter(user_id=current_user, book_id=book)
+            rate = bool(rate) and len(rate) and rate[0].score
+            book.rate = []
+            rate_title = ('Poor', 'Fair', 'Good', 'Excellent', 'WOW!!!')
+            for i in range(rate):
+                book.rate.append(('star selected', rate_title[i], i + 1))
+            for j in range(5 - rate):
+                book.rate.append(('star', rate_title[j + rate], j + rate + 1))
+        return context
 
 class category_list_view(ListView):
     model = Category
+    paginate_by = 4
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        current_user = self.request.user.id
+
+        user = Profile.objects.filter(user_id=current_user)
+        user = len(user) and user[0]
+        if user:
+            categories = user.favourite_category.all()
+        else:
+            categories = Category.objects.all()
+        for category in context['category_list']:
+            category.favourite = user and category in categories
+        return context
 
 class authorsListView(ListView):
     model=Author
+    paginate_by = 4
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        current_user = self.request.user.id
+
+        user = Profile.objects.filter(user_id=current_user)
+        user = len(user) and user[0]
+        if user:
+            authors = user.follows.all()
+        else:
+            authors = Author.objects.all()
+        for author in context['author_list']:
+            author.followed = user and author in authors
+        return context
 
 class authorsDetailView(DetailView):
     model = Author
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        current_user = self.request.user.id
+        author = self.kwargs['pk']
+
+        user = Profile.objects.filter(user_id=current_user)
+        user = len(user) and user[0]
+
+        follows = Follower.objects.filter(user_id=current_user, author_id=author)
+        follows = len(follows) and follows[0]
+
+        context.update({
+            'follow': follows
+        })
+        return context
 
 class UserForm(UserCreationForm):
     class Meta:
@@ -154,6 +224,29 @@ class book_author_list(ListView):
     def get_queryset(self, **kwargs):
         return Book.objects.filter(author__pk=self.kwargs['pk'])
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        current_user = self.request.user.id
+
+        user = Profile.objects.filter(user_id=current_user)
+        user = len(user) and user[0]
+        if user:
+            reads = user.reading.all()
+            wishes = user.wish.all()
+            rates = user.rating.all()
+        for book in context['book_author_list']:
+            book.read = user and book in reads
+            book.wish = user and book in wishes
+            rate = user and Rate.objects.filter(user_id=current_user, book_id=book)
+            rate = bool(rate) and len(rate) and rate[0].score
+            book.rate = []
+            rate_title = ('Poor', 'Fair', 'Good', 'Excellent', 'WOW!!!')
+            for i in range(rate):
+                book.rate.append(('star selected', rate_title[i], i + 1))
+            for j in range(5 - rate):
+                book.rate.append(('star', rate_title[j + rate], j + rate + 1))
+        return context
+
 
 class category_books_list(ListView):
     model = Book
@@ -161,6 +254,29 @@ class category_books_list(ListView):
     template_name = 'FreeBooks/category_books_list.html'
     def get_queryset(self, **kwargs):
         return Book.objects.filter(category__pk=self.kwargs['pk'])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        current_user = self.request.user.id
+
+        user = Profile.objects.filter(user_id=current_user)
+        user = len(user) and user[0]
+        if user:
+            reads = user.reading.all()
+            wishes = user.wish.all()
+            rates = user.rating.all()
+        for book in context['category_books_list']:
+            book.read = user and book in reads
+            book.wish = user and book in wishes
+            rate = user and Rate.objects.filter(user_id=current_user, book_id=book)
+            rate = bool(rate) and len(rate) and rate[0].score
+            book.rate = []
+            rate_title = ('Poor', 'Fair', 'Good', 'Excellent', 'WOW!!!')
+            for i in range(rate):
+                book.rate.append(('star selected', rate_title[i], i + 1))
+            for j in range(5 - rate):
+                book.rate.append(('star', rate_title[j + rate], j + rate + 1))
+        return context
 
 class user_profile(TemplateView):
     template_name = 'FreeBooks/user.html'

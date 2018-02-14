@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block siteTitle %}
-    All Authors
+    All Books
 {% endblock siteTitle %}
 
 {% block bar_books %}
@@ -10,18 +10,66 @@
 {% endblock bar_books %}
 
 {% block cssFiles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'FreeBooks/css/author_list.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'FreeBooks/css/book_list.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 {% endblock cssFiles %}
 {% block siteContent %}
-<div class="div">
-
-    <h1>Books</h1>
+    {% csrf_token %}
+    <div class="books">
     {% for book in book_list %}
-        <ul class="ul">
-            <li class="li"><a href="{% url 'FreeBooks:book_detail' book.book_id %}">{{ book.title }}</a></li>
-        </ul>
+        <div id="{{ book.book_id }}" class="abook">
+            <div class="cover">
+                <a title="{{ book.title }}" href="{% url 'FreeBooks:book_detail' book.book_id %}"><img class="bookCover" src="{{ book.pic.url }}"></a>
+            </div>
+            <div class="data">
+                <a title="{{ book.title }}" href="{% url 'FreeBooks:book_detail' book.book_id %}"><h6><em><b>{{ book.title }}</b></em></h6></a>
+                {% if book.read %}
+                    <button id="unread" class="funcBtn active_btn">Done ✔</button>
+                    <button id="wish" style="display: none;" class="funcBtn inactive_btn">Wish to Read</button>
+                {% else %}
+                        <button id="read" class="funcBtn inactive_btn">Read</button>
+                    {% if book.wish %}
+                        <button id="unwish" class="funcBtn active_btn">Will Read! ✔</button>
+                    {% else %}
+                        <button id="wish" class="funcBtn inactive_btn">Wish to Read</button>
+                    {% endif %}
+                {% endif %}
+            <div class='rating-stars text-center'>
+                <ul id='stars'>
+                    {% for class, titl, value in book.rate %}
+                        <li class="{{ class }}" title="{{ titl }}" data-value="{{ value }}">
+                        <i class='fa fa-star fa-fw'></i>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            </div>
         </div>
     {% empty %}
-        There are no books.
+        <h1>There are no books.</h1>
     {% endfor %}
+    </div>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
 {% endblock siteContent %}
+
+
+{% block jsFiles %}
+    <script type="text/javascript" src="{% static 'FreeBooks/js/book_list.js' %}"></script>
+{% endblock jsFiles %}

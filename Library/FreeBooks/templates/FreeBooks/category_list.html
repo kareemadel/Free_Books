@@ -10,22 +10,50 @@
 {% endblock bar_categories %}
 
 {% block cssFiles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'FreeBooks/css/author_list.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'FreeBooks/css/category_list.css' %}" />
 {% endblock cssFiles %}
 {% block siteContent %}
-<div class="div">
-
-    <h1>Categories</h1>
-    <ul class="ul">
+    {% csrf_token %}
+    <div class="categories">
     {% for category in category_list %}
-        {% if category.name != "-999" %}
-            <li class="li"><a href="{% url 'FreeBooks:category_books_list' category.category_id %}">{{ category.name }}</a></li>
-        {% endif %}
+        <div id="{{ category.category_id }}" class="acategory">
+            <div class="cover">
+                <a title="{{ category.name }}" href="{% url 'FreeBooks:category_books_list' category.category_id %}"><img class="categoryCover" src="{{ category.pic.url }}"></a>
+            </div>
+            <div class="data">
+                <a title="{{ category.name }}" href="{% url 'FreeBooks:category_books_list' category.category_id %}"><h6><em><b>{{ category.name }}</b></em></h6></a>
+                {% if category.favourite %}
+                    <button id="unfollow" class="funcBtn active_btn">Unfollow</button>
+                {% else %}
+                    <button id="read" class="funcBtn inactive_btn">Follow</button>
+                {% endif %}
+            </div>
+        </div>
     {% empty %}
-        There are no categories.
+        <h1>There are no Categories.</h1>
     {% endfor %}
-    </ul>
-			</div>
-				
+    </div>
 
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
 {% endblock siteContent %}
+
+
+{% block jsFiles %}
+    <script type="text/javascript" src="{% static 'FreeBooks/js/category_list.js' %}"></script>
+{% endblock jsFiles %}
