@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import TemplateView, DetailView, ListView
-from .models import Book, Category, Author, Profile, Read, Rate, WishList, Follower
+from .models import Book, Category, Author, Profile, Read, Rate, WishList, Follower,FavouriteCategory
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -126,6 +126,7 @@ class category_list_view(ListView):
             category.favourite = user and category in categories
         return context
 
+
 class authorsListView(ListView):
     model=Author
     paginate_by = 4
@@ -162,7 +163,17 @@ class authorsDetailView(DetailView):
             'follow': follows
         })
         return context
-
+    def post(self, request, **kwargs):
+        body = json.loads(self.request.body.decode("utf-8"))
+        print(body)
+        for field in body:
+            if field =='follow' and body[field]:
+                Follower.objects.get_or_create(user_id=self.request.user.id, author_id=self.kwargs['pk'])
+            elif field == 'unfollow' and body[field]:
+                followRecord = Follower.objects.filter(user_id=self.request.user.id, author_id=self.kwargs['pk'])
+                if followRecord.exists():
+                    followRecord[0].delete()
+        return HttpResponse("here")
 class UserForm(UserCreationForm):
     class Meta:
         model = User
@@ -277,7 +288,17 @@ class category_books_list(ListView):
             for j in range(5 - rate):
                 book.rate.append(('star', rate_title[j + rate], j + rate + 1))
         return context
-
+    def post(self, request, **kwargs):
+        body = json.loads(self.request.body.decode("utf-8"))
+        print(body)
+        for field in body:
+            if field =='favourite' and body[field]:
+                FavouriteCategory.objects.get_or_create(user_id=self.request.user.id, category_id=self.kwargs['pk'])
+            elif field == 'unfavourite' and body[field]:
+                favorRecord = FavouriteCategory.objects.filter(user_id=self.request.user.id,category_id=self.kwargs['pk'])
+                if favorRecord.exists():
+                    favorRecord[0].delete()
+        return HttpResponse("so")
 class user_profile(TemplateView):
     template_name = 'FreeBooks/user.html'
     model = Profile

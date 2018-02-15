@@ -14,6 +14,8 @@
 {% endblock cssFiles %}
 {% block siteContent %}
     {% csrf_token %}
+
+
     <div class="categories">
     {% for category in category_list %}
         <div id="{{ category.category_id }}" class="acategory">
@@ -23,10 +25,11 @@
             <div class="data">
                 <a title="{{ category.name }}" href="{% url 'FreeBooks:category_books_list' category.category_id %}"><h6><em><b>{{ category.name }}</b></em></h6></a>
                 {% if category.favourite %}
-                    <button id="unfollow" class="funcBtn active_btn">Unfollow</button>
-                {% else %}
-                    <button id="read" class="funcBtn inactive_btn">Follow</button>
-                {% endif %}
+                <button id="unfavourite" class="funcBtn active_btn">❤</button>
+                    {% else %}
+                        <button id="favourite" class="funcBtn inactive_btn">favourite</button>
+                    {% endif %}
+
             </div>
         </div>
     {% empty %}

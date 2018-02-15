@@ -1,22 +1,13 @@
-function swapElements(e, t, i) {
-    e.show(), t.hide(), 'more' == $(i).text() ? $(i).text('(less)') : $(i).text('more');
-}
-
-function swapContent(e) {
-    let t = $(e).data('id');
-    i = $(e).siblings('#freeTextContainer' + t);
-    o = $(e).siblings('#freeText' + t);
-    'none' == i.css('display') ? swapElements(i, o, e) : 'none' == o.css('display') && swapElements(o, i, e);
-}
 $(document).ready(function() {
     let csrftoken = $('[name=csrfmiddlewaretoken]').val();
 $('.funcBtn').on('click', function() {
     element = $(this);
+    console.log(element)
     id = element.attr('id');
     let xhttp = new XMLHttpRequest();
     xhttp.responseType = 'json';
-    let url = location.protocol + '//' + location.host + location.pathname;
-    xhttp.open('POST',url);
+    let url = location.protocol + '//' + location.host + location.pathname+ $(this).closest('.aauthor').attr('id');
+    xhttp.open('POST', url.replace('authors', 'author'));
     xhttp.setRequestHeader('X-CSRFToken', csrftoken);
     if (id === 'follow') {
         element.addClass('active_btn');

@@ -10,7 +10,7 @@ urlpatterns = [
     path('books/', book_list_view.as_view(), name='book_list'),
     path('categories/', category_list_view.as_view(), name='category_list'),
     path('authors/', authorsListView.as_view(), name='AuthorList'),
-    path('authors/<int:pk>', authorsDetailView.as_view(), name='AuthorDetail'),
+    path('author/<int:pk>', authorsDetailView.as_view(), name='AuthorDetail'),
     path('register/', create_profile, name='register'),
     path('login/', auth_views.LoginView.as_view(template_name='FreeBooks/registration/login.html'), name='login'),
     path('profile/', user_profile.as_view(), name='user_profile'),

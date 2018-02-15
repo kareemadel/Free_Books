@@ -16,7 +16,7 @@
     {% csrf_token %}
     <div class="authors">
     {% for author in author_list %}
-        <div id="{{ author.categoauthor_id }}" class="aauthor">
+        <div id="{{ author.author_id }}" class="aauthor">
             <div class="cover">
                 <a title="{{ author.name }}" href="{% url 'FreeBooks:AuthorDetail' author.author_id %}"><img class="authorPic" src="{{ author.pic.url }}"></a>
             </div>
@@ -25,7 +25,7 @@
                 {% if author.followed %}
                     <button id="unfollow" class="funcBtn active_btn">Unfollow</button>
                 {% else %}
-                    <button id="read" class="funcBtn inactive_btn">Follow</button>
+                    <button id="follow" class="funcBtn inactive_btn">+ Follow</button>
                 {% endif %}
             </div>
         </div>
@@ -55,5 +55,5 @@
 
 
 {% block jsFiles %}
-    <script type="text/javascript" src="{% static 'FreeBooks/js/category_list.js' %}"></script>
+    <script type="text/javascript" src="{% static 'FreeBooks/js/author_list.js' %}"></script>
 {% endblock jsFiles %}

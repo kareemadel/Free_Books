@@ -60,6 +60,7 @@ $(document).ready(function() {
         xhttp.responseType = 'json';
         let url = location.protocol + '//' + location.host + location.pathname;
         xhttp.open('POST', url);
+        console.log(url);
         xhttp.setRequestHeader('X-CSRFToken', csrftoken);
         if (id === 'read') {
             element.addClass('active_btn');
