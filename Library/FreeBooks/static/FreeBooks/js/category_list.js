@@ -6,7 +6,7 @@ $('.funcBtn').on('click', function() {
     let xhttp = new XMLHttpRequest();
     xhttp.responseType = 'json';
     let url = location.protocol + '//' + location.host + location.pathname+ $(this).closest('.acategory').attr('id');
-    xhttp.open('POST', url.replace('categories', 'categoriesBooks'));
+    xhttp.open('POST', url.replace(/(?:Favourite|categories)/, 'categoriesBooks'));
     xhttp.setRequestHeader('X-CSRFToken', csrftoken);
     console.log(id);
     if (id === 'favourite') {

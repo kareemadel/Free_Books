@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block siteTitle %}
-    {{ category }}
+    Read List
 {% endblock siteTitle %}
 
 {% block bar_books %}
@@ -16,13 +16,13 @@
 {% block siteContent %}
     {% csrf_token %}
     <div class="books">
-    {% for book in category_books_list %}
+    {% for book in book_list %}
         <div id="{{ book.book_id }}" class="abook">
             <div class="cover">
                 <a title="{{ book.title|title }}" href="{% url 'FreeBooks:book_detail' book.book_id %}"><img class="bookCover" src="{{ book.pic.url }}"></a>
             </div>
             <div class="data">
-                <a title="{{ book.title }}" href="{% url 'FreeBooks:book_detail' book.book_id %}"><h6><em><b>{{ book.title|title }}</b></em></h6></a>
+                <a title="{{ book.title|title }}" href="{% url 'FreeBooks:book_detail' book.book_id %}"><h6><em><b>{{ book.title|title }}</b></em></h6></a>
                 {% if book.read %}
                     <button id="unread" class="funcBtn active_btn">Done ✔</button>
                     <button id="wish" style="display: none;" class="funcBtn inactive_btn">Wish to Read</button>
@@ -46,33 +46,32 @@
             </div>
         </div>
     {% empty %}
-        <h1>There are no books.</h1>
+        <h1>oops!! Your Read List is empty.</h1>
     {% endfor %}
     </div>
-{% if category_books_list %}
-    <div class="pagination">
-        <span class="step-links">
-            {% if page_obj.has_previous %}
-                <a href="?page=1">&laquo; first</a>
-                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-            {% endif %}
-            
-            {% if page_obj.has_previous or page_obj.has_next %}
-                <span class="current">
-                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-                </span>
-            {% endif %}
 
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">next</a>
-                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-            {% endif %}
-        </span>
-    </div>
-{% endif %}
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+        
+        {% if page_obj.has_previous or page_obj.has_next %}
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+        {% endif %}
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
 {% endblock siteContent %}
 
 
 {% block jsFiles %}
-    <script type="text/javascript" src="{% static 'FreeBooks/js/category_book_list.js' %}"></script>
+    <script type="text/javascript" src="{% static 'FreeBooks/js/book_list.js' %}"></script>
 {% endblock jsFiles %}

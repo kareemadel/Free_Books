@@ -1,5 +1,5 @@
 from django.urls import path, re_path
-from .views import home_view, book_view, book_list_view, category_list_view, authorsListView, authorsDetailView, create_profile, Search , book_author_list,category_books_list, user_profile
+from .views import *
 from django.contrib.auth import views as auth_views
 
 app_name = 'FreeBooks'
@@ -18,5 +18,8 @@ urlpatterns = [
     re_path(r'^search$', Search.as_view(), name='search_result'),
 	path('books/<pk>', book_author_list.as_view(), name='book_author_list'),
 	path('categoriesBooks/<pk>', category_books_list.as_view(), name='category_books_list'),
-
+    path('wishList/', wish_list_view.as_view(), name='wish_list'),
+    path('readList/', read_list_view.as_view(), name='read_list'),
+    path('Follow/', follow_list_view.as_view(), name='follow_list'),
+    path('Favourite/', favourite_list_view.as_view(), name='favourite_list'),
 ]

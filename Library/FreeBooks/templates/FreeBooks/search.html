@@ -53,9 +53,13 @@
             {% if book_list.has_previous %}
                 <a href="?q={{ q.q }}&page1={{ book_list.previous_page_number }}&page2={{ q.page2 }}"> Previous </a>
             {% endif %}
-            <span class="current">
-                Page {{ book_list.number }} of {{ book_list.paginator.num_pages }}
-            </span>
+
+            {% if book_list.has_previous or book_list.has_next %}
+                <span class="current">
+                    Page {{ book_list.number }} of {{ book_list.paginator.num_pages }}
+                </span>
+            {% endif %}
+
             {% if book_list.has_next %}
                 <a href="?q={{ q.q }}&page1={{ book_list.next_page_number }}&page2={{ q.page2 }}"> Next </a>
             {% endif %}
@@ -67,16 +71,16 @@
         <h1>Authors</h1>
     <div class="authors">
     {% for author in author_list %}
-        <div id="{{ author.categoauthor_id }}" class="aauthor">
+        <div id="{{ author.author_id }}" class="aauthor">
             <div class="cover">
                 <a title="{{ author.name|title }}" href="{% url 'FreeBooks:AuthorDetail' author.author_id %}"><img class="authorPic" src="{{ author.pic.url }}"></a>
             </div>
             <div class="data">
                 <a title="{{ author.name|title }}" href="{% url 'FreeBooks:AuthorDetail' author.author_id %}"><h6><em><b>{{ author.name|title }}</b></em></h6></a>
                 {% if author.followed %}
-                    <button id="unfollow" class="funcBtn active_btn">Unfollow</button>
+                    <button id="unfollow" class="funcBtn active_btn author_b">Unfollow</button>
                 {% else %}
-                    <button id="read" class="funcBtn inactive_btn">Follow</button>
+                    <button id="follow" class="funcBtn inactive_btn author_b">+ Follow</button>
                 {% endif %}
             </div>
         </div>
@@ -87,16 +91,21 @@
             {% if author_list.has_previous %}
                 <a href="?q={{ q.q }}&page1={{ q.page1 }}&page2={{ author_list.previous_page_number }}"> Previous </a>
             {% endif %}
-            <span class="current">
-                Page {{ author_list.number }} of {{ author_list.paginator.num_pages }}
-            </span>
+
+            {% if author_list.has_previous or author_list.has_next %}
+                <span class="current">
+                    Page {{ author_list.number }} of {{ author_list.paginator.num_pages }}
+                </span>
+            {% endif %}
+
             {% if author_list.has_next %}
                 <a id="herfTwo" href="?q={{ q.q }}&page1={{ q.page1 }}&page2={{ author_list.next_page_number }}"> Next </a>
             {% endif %}
         </span>
       </div>
     {% endif %}
-
-
-
 {% endblock siteContent %}
+
+{% block jsFiles %}
+    <script type="text/javascript" src="{% static 'FreeBooks/js/search.js' %}"></script>
+{% endblock jsFiles %}

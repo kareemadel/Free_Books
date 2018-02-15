@@ -13,7 +13,7 @@
 
 
 {% block bar_profile %}
-        <li class="active"><a href="{% url 'FreeBooks:user_profile' %}">Profile</a></li>
+    <li class="active"><a href="{% url 'FreeBooks:user_profile' %}">Profile</a></li>
 {% endblock bar_profile %}
 
 
@@ -25,17 +25,20 @@
     </div>
     
     <div class="metacol">
-      <div id="userData" class="stacked">
-          <h1 id="userName" itemprop="name">
-                {{ user.first_name|title }} {{ user.last_name|title }}
-          </h1>
-          <span class="by smallText">{{ profile.birth_date }}</span>
-          {% for category in favourite_categories %}
-            {% if category.name != "-999" %}
-            <span class="by smallText"> , <a href="{% url 'FreeBooks:category_books_list' category.category_id %}">{{ category }}</a></span>
-            {% endif %}
-          {% endfor %}
-      </div>
+        <div id="userData" class="stacked">
+            <h1 id="userName" itemprop="name">
+            {{ user.first_name|title }} {{ user.last_name|title }}
+            </h1>
+            <span class="by smallText">{{ profile.birth_date }}</span>
+            {% for category in favourite_categories|slice:":3" %}
+                <span class="by smallText"> , <a href="{% url 'FreeBooks:category_books_list' category.category_id %}">{{ category }}</a></span>
+            {% endfor %}
+            <b>
+            <span class="by smallText">, <a href="{% url 'FreeBooks:wish_list' %}">Wish List</a></span>
+            <span class="by smallText">, <a href="{% url 'FreeBooks:read_list' %}">Read List</a></span>
+            <span class="by smallText">, <a href="{% url 'FreeBooks:follow_list' %}">Authors</a></span>
+            <span class="by smallText">, <a href="{% url 'FreeBooks:favourite_list' %}">Categories</a></span></b>
+        </div>
       <div id="userBio" class="readable stacked" style="right:0">
           <span id="freeTextContainer5022597030680236223">
           {{ profile.bio|truncatewords:30 }}

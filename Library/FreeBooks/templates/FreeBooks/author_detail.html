@@ -42,6 +42,7 @@
                 <span class="by smallText">, Died: </span>
                 <span class="by smallText">{{ author.death_date }}</span>
             {% endif %}
+            <span class="by smallText">, <a href="{% url 'FreeBooks:book_author_list' author.author_id %}">Books</a></span>
         </div>
         <div id="biography" class="readable stacked" style="right:0">
             <span id="freeTextContainer5022597030680236223">

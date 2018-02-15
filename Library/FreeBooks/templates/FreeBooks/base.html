@@ -27,16 +27,18 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="">Logo</a>
+                <a class="navbar-brand" style="font-style: oblique; font-weight: bold;" href="">FreeBooks</a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     {% block bar_home %}
                         <li><a href="{% url 'FreeBooks:home' %}">Home</a></li>
                     {% endblock bar_home %}
-                    {% block bar_about %}
-                        <li><a href="#">About</a></li>
-                    {% endblock bar_about %}
+                    {% comment %}
+                        {% block bar_about %}
+                            <li><a href="#">About</a></li>
+                        {% endblock bar_about %}
+                    {% endcomment %}
                     {% block bar_categories %}
                         <li><a href="{% url 'FreeBooks:category_list' %}">Categories</a></li>
                     {% endblock bar_categories %}

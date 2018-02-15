@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block siteTitle %}
-    All Authors
+    Your Authors
 {% endblock siteTitle %}
 
 {% block bar_authors %}
@@ -30,31 +30,29 @@
             </div>
         </div>
     {% empty %}
-        <h1>There are no Authors.</h1>
+        <h1>You are not following any author.</h1>
     {% endfor %}
     </div>
 
-{% if author_list %}
-    <div class="pagination">
-        <span class="step-links">
-            {% if page_obj.has_previous %}
-                <a href="?page=1">&laquo; first</a>
-                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-            {% endif %}
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
             
-            {% if page_obj.has_previous or page_obj.has_next %}
-                <span class="current">
-                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-                </span>
-            {% endif %}
+        {% if page_obj.has_previous or page_obj.has_next %}
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+        {% endif %}
 
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">next</a>
-                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-            {% endif %}
-        </span>
-    </div>
-{% endif %}
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
 {% endblock siteContent %}
 
 

@@ -266,6 +266,14 @@ class Search(ListView):
                 book.rate.append(('star selected', rate_title[i], i + 1))
             for j in range(5 - rate):
                 book.rate.append(('star', rate_title[j + rate], j + rate + 1))
+
+        if user:
+            authors = user.follows.all()
+        else:
+            authors = Author.objects.all()
+        for author in author_list:
+            author.followed = user and author in authors
+
         context.update({
             'book_list': book_list,
             'author_list': author_list,
@@ -304,6 +312,7 @@ class book_author_list(ListView):
                 book.rate.append(('star selected', rate_title[i], i + 1))
             for j in range(5 - rate):
                 book.rate.append(('star', rate_title[j + rate], j + rate + 1))
+        context['author'] = Author.objects.filter(pk=self.kwargs['pk'])[0].name
         return context
 
 
@@ -335,6 +344,7 @@ class category_books_list(ListView):
                 book.rate.append(('star selected', rate_title[i], i + 1))
             for j in range(5 - rate):
                 book.rate.append(('star', rate_title[j + rate], j + rate + 1))
+        context['category'] = Category.objects.filter(pk=self.kwargs['pk'])[0].name
         return context
     def post(self, request, **kwargs):
         body = json.loads(self.request.body.decode("utf-8"))
@@ -347,6 +357,7 @@ class category_books_list(ListView):
                 if favorRecord.exists():
                     favorRecord[0].delete()
         return HttpResponse("so")
+
 class user_profile(TemplateView):
     template_name = 'FreeBooks/user.html'
     model = Profile
@@ -358,3 +369,143 @@ class user_profile(TemplateView):
         else:
             user = Profile.objects.get(user_id=current_user)
             return render(self.request, 'FreeBooks/user.html', {'profile': user, 'favourite_categories': user.favourite_category.all()})
+
+
+class wish_list_view(ListView):
+    model = Book
+    paginate_by = 4
+    template_name = 'FreeBooks/wish_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        current_user = self.request.user.id
+
+        user = Profile.objects.filter(user_id=current_user)
+        user = len(user) and user[0]
+        if user:
+            reads = user.reading.all()
+            wishes = user.wish.all()
+            rates = user.rating.all()
+        for book in context['book_list']:
+            book.read = user and book in reads
+            book.wish = user and book in wishes
+            rate = user and Rate.objects.filter(user_id=current_user, book_id=book)
+            rate = bool(rate) and len(rate) and rate[0].score
+            book.rate = []
+            rate_title = ('Poor', 'Fair', 'Good', 'Excellent', 'WOW!!!')
+            for i in range(rate):
+                book.rate.append(('star selected', rate_title[i], i + 1))
+            for j in range(5 - rate):
+                book.rate.append(('star', rate_title[j + rate], j + rate + 1))
+        return context
+
+    def get_queryset(self, **kwargs):
+        current_user = self.request.user.id
+        user = Profile.objects.filter(user_id=current_user)
+        user = len(user) and user[0]
+        if user:
+            book_list = user.wish.all()
+        else:
+            book_list = Book.objects.all()
+        return book_list
+
+class read_list_view(ListView):
+    model = Book
+    paginate_by = 4
+    template_name = 'FreeBooks/read_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        current_user = self.request.user.id
+
+        user = Profile.objects.filter(user_id=current_user)
+        user = len(user) and user[0]
+        if user:
+            reads = user.reading.all()
+            wishes = user.wish.all()
+            rates = user.rating.all()
+        for book in context['book_list']:
+            book.read = user and book in reads
+            book.wish = user and book in wishes
+            rate = user and Rate.objects.filter(user_id=current_user, book_id=book)
+            rate = bool(rate) and len(rate) and rate[0].score
+            book.rate = []
+            rate_title = ('Poor', 'Fair', 'Good', 'Excellent', 'WOW!!!')
+            for i in range(rate):
+                book.rate.append(('star selected', rate_title[i], i + 1))
+            for j in range(5 - rate):
+                book.rate.append(('star', rate_title[j + rate], j + rate + 1))
+        return context
+
+    def get_queryset(self, **kwargs):
+        current_user = self.request.user.id
+        user = Profile.objects.filter(user_id=current_user)
+        user = len(user) and user[0]
+        if user:
+            book_list = user.reading.all()
+        else:
+            book_list = Book.objects.all()
+        return book_list
+
+
+
+class follow_list_view(ListView):
+    model = Author
+    template_name = 'FreeBooks/follow_list.html'
+    paginate_by = 4
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        current_user = self.request.user.id
+
+        user = Profile.objects.filter(user_id=current_user)
+        user = len(user) and user[0]
+        if user:
+            authors = user.follows.all()
+        else:
+            authors = Author.objects.all()
+        for author in context['author_list']:
+            author.followed = user and author in authors
+        return context
+
+    def get_queryset(self, **kwargs):
+        current_user = self.request.user.id
+
+        user = Profile.objects.filter(user_id=current_user)
+        user = len(user) and user[0]
+        if user:
+            authors = user.follows.all()
+        else:
+            authors = Author.objects.all()
+        return authors
+
+
+class favourite_list_view(ListView):
+    model = Category
+    template_name = 'FreeBooks/favourite_list.html'
+    paginate_by = 4
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        current_user = self.request.user.id
+
+        user = Profile.objects.filter(user_id=current_user)
+        user = len(user) and user[0]
+        if user:
+            categories = user.favourite_category.all()
+        else:
+            categories = Category.objects.all()
+        for category in context['category_list']:
+            category.favourite = user and category in categories
+        return context
+
+    def get_queryset(self, **kwargs):
+        current_user = self.request.user.id
+
+        user = Profile.objects.filter(user_id=current_user)
+        user = len(user) and user[0]
+        if user:
+            category_list = user.favourite_category.all()
+        else:
+            category_list = Category.objects.all()
+        return category_list

@@ -37,9 +37,8 @@ $(document).ready(function() {
         console.log(ratingValue);
         let xhttp = new XMLHttpRequest();
         xhttp.responseType = 'json';
-        let url = location.protocol + '//' + location.host + location.pathname + $(this).closest('.abook').attr('id');
-        console.log(url);
-        xhttp.open('POST', url.replace(/(?:readList|wishList|books)/, 'book'));
+        let url = location.protocol + '//' + location.host + location.pathname + '/' + $(this).closest('.abook').attr('id');
+        xhttp.open('POST', url.replace('search', 'book'));
         xhttp.setRequestHeader('X-CSRFToken', csrftoken);
         xhttp.send('{"rate": ' + ratingValue + '}');
     });
@@ -49,9 +48,8 @@ $(document).ready(function() {
         id = element.attr('id');
         let xhttp = new XMLHttpRequest();
         xhttp.responseType = 'json';
-        let url = location.protocol + '//' + location.host + location.pathname + $(this).closest('.abook').attr('id');
-        console.log(url);
-        xhttp.open('POST', url.replace(/(?:readList|wishList|books)/, 'book'));
+        let url = location.protocol + '//' + location.host + location.pathname + '/' + $(this).closest('.abook').attr('id');
+        xhttp.open('POST', url.replace('search', 'book'));
         xhttp.setRequestHeader('X-CSRFToken', csrftoken);
         if (id === 'read') {
             element.addClass('active_btn');
@@ -91,4 +89,28 @@ $(document).ready(function() {
             xhttp.send('{"wish": "", "unwish": "t"}');
         }
     });
+
+    $('.author_b').on('click', function() {
+        element = $(this);
+        id = element.attr('id');
+        let xhttp = new XMLHttpRequest();
+        xhttp.responseType = 'json';
+        let url = location.protocol + '//' + location.host + location.pathname + '/' + $(this).closest('.aauthor').attr('id');
+        console.log($(this).closest('.aauthor'));
+        xhttp.open('POST', url.replace('search', 'author'));
+        xhttp.setRequestHeader('X-CSRFToken', csrftoken);
+        if (id === 'follow') {
+            element.addClass('active_btn');
+            element.removeClass('inactive_btn');
+            element.text('Unfollow');
+            element.attr('id', 'unfollow');
+            xhttp.send('{"follow": "t", "unfollow": ""}');
+        } else if (id === 'unfollow') {
+            element.removeClass('active_btn');
+            element.addClass('inactive_btn');
+            element.text('+ Follow');
+            element.attr('id', 'follow');
+            xhttp.send('{"follow": "", "unfollow": "t"}');
+        }
+        });
 });
