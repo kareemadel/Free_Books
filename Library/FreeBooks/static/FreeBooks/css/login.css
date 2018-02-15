@@ -19,12 +19,16 @@ form {
     border-radius: 8px;
 }
 
+#srchForm {
+    background-color: rgb(34, 34, 34);
+}
+
 h1 {
     margin: 0 0 30px 0;
     text-align: center;
 }
 
-form input[type="text"],
+form input[type="text"]:not(.form-control),
 form input[type="password"],
 form input[type="date"],
 form input[type="datetime"],

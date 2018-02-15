@@ -11,6 +11,14 @@
 {% endblock cssFiles %}
 
 {% block siteContent %}
+            {% if user_form.errors %}
+            <br>
+            <h1>opps!!</h1>
+            <h4>Please fix these issues.</h4>
+            <div class="message">
+                {{ user_form.errors }}
+            </div>
+            {% endif %}
     <form id="apply-form" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% for field in user_form %}

@@ -18,10 +18,10 @@
     {% for author in author_list %}
         <div id="{{ author.author_id }}" class="aauthor">
             <div class="cover">
-                <a title="{{ author.name }}" href="{% url 'FreeBooks:AuthorDetail' author.author_id %}"><img class="authorPic" src="{{ author.pic.url }}"></a>
+                <a title="{{ author.name|title }}" href="{% url 'FreeBooks:AuthorDetail' author.author_id %}"><img class="authorPic" src="{{ author.pic.url }}"></a>
             </div>
             <div class="data">
-                <a title="{{ author.name }}" href="{% url 'FreeBooks:AuthorDetail' author.author_id %}"><h6><em><b>{{ author.name }}</b></em></h6></a>
+                <a title="{{ author.name|title }}" href="{% url 'FreeBooks:AuthorDetail' author.author_id %}"><h6><em><b>{{ author.name|title }}</b></em></h6></a>
                 {% if author.followed %}
                     <button id="unfollow" class="funcBtn active_btn">Unfollow</button>
                 {% else %}

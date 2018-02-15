@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block siteTitle %}
-    {{ book.title }} - {{ book.author.name }}
+    {{ book.title |title}} - {{ book.author.name|title }}
 {% endblock siteTitle %}
 
 
@@ -21,7 +21,7 @@
     {% csrf_token %}
     <div class="imageColumn">
         <div class="bookCover">
-            <a href="{{ book.pic.url }}"><img id="coverImage" alt="{{ book.title }}" src="{{ book.pic.url }}"></a>
+            <a href="{{ book.pic.url }}"><img id="coverImage" alt="{{ book.title|title }}" src="{{ book.pic.url }}"></a>
         </div>
         <div class="buttons">
           {% if read %}
@@ -56,7 +56,7 @@
     <div class="metacol">
       <div id="bookAuthors" class="stacked">
           <h1 id="bookTitle" class="bookTitle" itemprop="name">
-                {{ book.title }}
+                {{ book.title|title }}
           </h1>
           <span class="by smallText">by</span>
           <span>

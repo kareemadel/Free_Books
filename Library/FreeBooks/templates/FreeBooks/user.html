@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block siteTitle %}
-    {{ user.first_name }} - {{ user.last_name }}
+    {{ user.first_name|title }} {{ user.last_name|title }}
 {% endblock siteTitle %}
 
 
@@ -27,7 +27,7 @@
     <div class="metacol">
       <div id="userData" class="stacked">
           <h1 id="userName" itemprop="name">
-                {{ user.first_name }} {{ user.last_name }}
+                {{ user.first_name|title }} {{ user.last_name|title }}
           </h1>
           <span class="by smallText">{{ profile.birth_date }}</span>
           {% for category in favourite_categories %}
