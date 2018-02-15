@@ -54,6 +54,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">                    
                     {% if user.is_authenticated %}
+                        <li id="logoutIcon"><a href="{% url 'FreeBooks:user_profile' %}"><span class="glyphicon glyphicon-user"></span>  {{ user.first_name|title }}</a></li>
                         <li id="logoutIcon"><a href="{% url 'FreeBooks:logout' %}"><span class="glyphicon glyphicon-log-out"></span>Log Out</a></li>
                     {% else %}
                         <li id="loginIcon"><a href="{% url 'FreeBooks:login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -61,7 +62,7 @@
                     {% endif %}
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <form class="navbar-form" role="search" action="{% url 'FreeBooks:home' %}search" method="get">
+                    <form class="navbar-form" role="search" action="{% url 'FreeBooks:home' %}search" method="get" id="srchForm">
                         <div class="input-group add-on">
                             <input class="form-control" placeholder="Search..." name="q" id="srch-term" type="text">
                             <div class="input-group-btn">

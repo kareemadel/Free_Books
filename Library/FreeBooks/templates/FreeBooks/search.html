@@ -2,25 +2,101 @@
 {% load static %}
 
 {% block siteTitle %}
-    All Authors
+    Search Results
 {% endblock siteTitle %}
+
+{% block cssFiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'FreeBooks/css/search.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock cssFiles %}
 
 
 {% block siteContent %}
-    <h1>Books</h1>
+    {% csrf_token %}
+
+    {% if book_list %}
+        <h1>Books</h1>
+    <div class="books">
     {% for book in book_list %}
-        <ul>
-            <li><a href="{% url 'FreeBooks:book_detail' book.book_id %}">{{ book }}</a></li>
-        </ul>
-    {% empty %}
-        empty
+       <div id="{{ book.book_id }}" class="abook">
+            <div class="cover">
+                <a title="{{ book.title|title }}" href="{% url 'FreeBooks:book_detail' book.book_id %}"><img class="bookCover" src="{{ book.pic.url }}"></a>
+            </div>
+            <div class="data">
+                <a title="{{ book.title|title }}" href="{% url 'FreeBooks:book_detail' book.book_id %}"><h6><em><b>{{ book.title|title }}</b></em></h6></a>
+                {% if book.read %}
+                    <button id="unread" class="funcBtn active_btn">Done ✔</button>
+                    <button id="wish" style="display: none;" class="funcBtn inactive_btn">Wish to Read</button>
+                {% else %}
+                        <button id="read" class="funcBtn inactive_btn">Read</button>
+                    {% if book.wish %}
+                        <button id="unwish" class="funcBtn active_btn">Will Read! ✔</button>
+                    {% else %}
+                        <button id="wish" class="funcBtn inactive_btn">Wish to Read</button>
+                    {% endif %}
+                {% endif %}
+            <div class='rating-stars text-center'>
+                <ul id='stars'>
+                    {% for class, titl, value in book.rate %}
+                        <li class="{{ class }}" title="{{ titl }}" data-value="{{ value }}">
+                        <i class='fa fa-star fa-fw'></i>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            </div>
+        </div>
+          
     {% endfor %}
-    <h1>Authors</h1>
+    <div>
+        <span class="step-links pagination">
+            {% if book_list.has_previous %}
+                <a href="?q={{ q.q }}&page1={{ book_list.previous_page_number }}&page2={{ q.page2 }}"> Previous </a>
+            {% endif %}
+            <span class="current">
+                Page {{ book_list.number }} of {{ book_list.paginator.num_pages }}
+            </span>
+            {% if book_list.has_next %}
+                <a href="?q={{ q.q }}&page1={{ book_list.next_page_number }}&page2={{ q.page2 }}"> Next </a>
+            {% endif %}
+        </span>
+      </div>
+    </div>
+    {% endif %}
+    {% if author_list %}
+        <h1>Authors</h1>
+    <div class="authors">
     {% for author in author_list %}
-        <ul>
-            <li><a href="{% url 'FreeBooks:AuthorDetail' author.author_id %}">{{ author }}</a></li>
-        </ul>
-    {% empty %}
-        empty
+        <div id="{{ author.categoauthor_id }}" class="aauthor">
+            <div class="cover">
+                <a title="{{ author.name|title }}" href="{% url 'FreeBooks:AuthorDetail' author.author_id %}"><img class="authorPic" src="{{ author.pic.url }}"></a>
+            </div>
+            <div class="data">
+                <a title="{{ author.name|title }}" href="{% url 'FreeBooks:AuthorDetail' author.author_id %}"><h6><em><b>{{ author.name|title }}</b></em></h6></a>
+                {% if author.followed %}
+                    <button id="unfollow" class="funcBtn active_btn">Unfollow</button>
+                {% else %}
+                    <button id="read" class="funcBtn inactive_btn">Follow</button>
+                {% endif %}
+            </div>
+        </div>
     {% endfor %}
+    </div>
+    <div>
+        <span class="step-links pagination">
+            {% if author_list.has_previous %}
+                <a href="?q={{ q.q }}&page1={{ q.page1 }}&page2={{ author_list.previous_page_number }}"> Previous </a>
+            {% endif %}
+            <span class="current">
+                Page {{ author_list.number }} of {{ author_list.paginator.num_pages }}
+            </span>
+            {% if author_list.has_next %}
+                <a id="herfTwo" href="?q={{ q.q }}&page1={{ q.page1 }}&page2={{ author_list.next_page_number }}"> Next </a>
+            {% endif %}
+        </span>
+      </div>
+    {% endif %}
+
+
+
 {% endblock siteContent %}

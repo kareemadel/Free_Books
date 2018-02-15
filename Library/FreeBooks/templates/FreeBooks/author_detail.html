@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block siteTitle %}
-	{{ author.name }}
+    {{ author.name|title }}
 {% endblock siteTitle %}
 
 
@@ -11,16 +11,16 @@
 {% endblock cssFiles %}
 
 
-{% block bar_books %}
+{% block bar_authors %}
     <li class="active"><a href="{% url 'FreeBooks:AuthorList' %}">Authors</a></li>
-{% endblock bar_books %}
+{% endblock bar_authors %}
 
 
 {% block siteContent %}
     {% csrf_token %}
     <div class="imageColumn">
         <div class="authorProfile">
-            <a href="{{ author.pic.url }}"><img id="authorPic" alt="{{ author.name }}" src="{{ author.pic.url }}"></a>
+            <a href="{{ author.pic.url }}"><img id="authorPic" alt="{{ author.name|title }}" src="{{ author.pic.url }}"></a>
         </div>
         <div class="buttons">
             {% if follow %}
@@ -30,28 +30,28 @@
             {% endif %}
         </div>
     </div>
-    
+
     <div class="metacol">
-      <div id="data" class="stacked">
-          <h1 id="authorName" class="bookeName" itemprop="name">
-                {{ author.name }}
-          </h1>
-          <span class="by smallText">Born: </span>
-          <span class="by smallText">{{ author.birth_date }}</span>
-          {% if author.death_date %}
-              <span class="by smallText">, Died: </span>
-              <span class="by smallText">{{ author.death_date }}</span>
-          {% endif %}
-      </div>
-      <div id="biography" class="readable stacked" style="right:0">
-          <span id="freeTextContainer5022597030680236223">
-          {{ author.bio|truncatewords:30 }}
-          </span>
-          <span id="freeText5022597030680236223" style="display:none">
-          {{ author.bio }}
-          </span>
-          <a data-id="5022597030680236223" href="#" onclick="swapContent($(this));; return false;">more</a>
-      </div>
+        <div id="data" class="stacked">
+            <h1 id="authorName" class="bookeName" itemprop="name">
+                {{ author.name|title }}
+            </h1>
+            <span class="by smallText">Born: </span>
+            <span class="by smallText">{{ author.birth_date }}</span>
+            {% if author.death_date %}
+                <span class="by smallText">, Died: </span>
+                <span class="by smallText">{{ author.death_date }}</span>
+            {% endif %}
+        </div>
+        <div id="biography" class="readable stacked" style="right:0">
+            <span id="freeTextContainer5022597030680236223">
+                {{ author.bio|truncatewords:30 }}
+            </span>
+            <span id="freeText5022597030680236223" style="display:none">
+                {{ author.bio }}
+            </span>
+            <a data-id="5022597030680236223" href="#" onclick="swapContent($(this));; return false;">more</a>
+        </div>
     </div>
 {% endblock %}
 

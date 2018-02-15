@@ -20,10 +20,10 @@
     {% for book in book_author_list %}
         <div id="{{ book.book_id }}" class="abook">
             <div class="cover">
-                <a title="{{ book.title }}" href="{% url 'FreeBooks:book_detail' book.book_id %}"><img class="bookCover" src="{{ book.pic.url }}"></a>
+                <a title="{{ book.title|title }}" href="{% url 'FreeBooks:book_detail' book.book_id %}"><img class="bookCover" src="{{ book.pic.url }}"></a>
             </div>
             <div class="data">
-                <a title="{{ book.title }}" href="{% url 'FreeBooks:book_detail' book.book_id %}"><h6><em><b>{{ book.title }}</b></em></h6></a>
+                <a title="{{ book.title|title }}" href="{% url 'FreeBooks:book_detail' book.book_id %}"><h6><em><b>{{ book.title|title }}</b></em></h6></a>
                 {% if book.read %}
                     <button id="unread" class="funcBtn active_btn">Done ✔</button>
                     <button id="wish" style="display: none;" class="funcBtn inactive_btn">Wish to Read</button>

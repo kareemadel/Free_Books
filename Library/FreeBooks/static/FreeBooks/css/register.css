@@ -11,7 +11,7 @@ body {
     color: #384047;
 }
 
-form {
+form{
     max-width: 300px;
     margin: 10px auto;
     padding: 10px 20px;
@@ -19,12 +19,16 @@ form {
     border-radius: 8px;
 }
 
+#srchForm {
+    background-color: rgb(34, 34, 34);
+}
+
 h1 {
     margin: 0 0 30px 0;
     text-align: center;
 }
 
-form input[type="text"],
+form input[type="text"]:not(.form-control),
 form input[type="password"],
 form input[type="date"],
 form input[type="datetime"],
@@ -123,4 +127,15 @@ label.light {
 
 form .error {
     color: red !important;
+}
+
+.message {
+    color: red !important;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.errorlist {
+    list-style-type: none;
+    font-weight: 700;
 }

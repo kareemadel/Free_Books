@@ -8,6 +8,7 @@ from django.db import transaction
 from django.contrib import messages
 from django.http import HttpResponse
 import json
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 # Create your views here.
@@ -183,9 +184,13 @@ def create_profile(request):
             profile = profile_form.save(commit=False)
             profile.user_id = user.id
             profile.save()
-            messages.success(request, ('Your profile was successfully updated!'))
-            return redirect('FreeBooks:home')
+            messages.success(request, ('You have registered successfully!'))
+            return redirect('FreeBooks:login')
         else:
+            email = request.POST['email']
+            username = request.POST['username']
+            isEmail = bool(User.objects.filter(email=email))
+            print(user_form.errors)
             messages.error(request, ('Please correct the error below.'))
     else:
         user_form = UserForm()
@@ -207,10 +212,53 @@ class Search(ListView):
 
     def get_context_data(self, **kwargs):
         q = self.request.GET.get('q', '')
+        page1q = self.request.GET.get('page1', '')
+        page2q = self.request.GET.get('page2', '')
+        querystring = {'q': q, 'page1': page1q, 'page2':page2q}
         context = super().get_context_data(**kwargs)
+        book_list = Book.objects.filter(title__icontains=q)
+        paginator = Paginator(book_list, 2)
+        page1 = self.request.GET.get('page1')
+        try:
+            book_list = paginator.page(page1)
+        except PageNotAnInteger:
+            book_list = paginator.page(1)
+        except EmptyPage:
+            book_list = paginator.page(paginator.num_pages)
+
+        author_list = Author.objects.filter(name__icontains=q)
+        paginator = Paginator(author_list, 2)
+        page2 = self.request.GET.get('page2')
+        try:
+            author_list = paginator.page(page2)
+        except PageNotAnInteger:
+            author_list = paginator.page(1)
+        except EmptyPage:
+            author_list = paginator.page(paginator.num_pages)
+
+
+        current_user = self.request.user.id
+        user = Profile.objects.filter(user_id=current_user)
+        user = len(user) and user[0]
+        if user:
+            reads = user.reading.all()
+            wishes = user.wish.all()
+            rates = user.rating.all()
+        for book in book_list:
+            book.read = user and book in reads
+            book.wish = user and book in wishes
+            rate = user and Rate.objects.filter(user_id=current_user, book_id=book)
+            rate = bool(rate) and len(rate) and rate[0].score
+            book.rate = []
+            rate_title = ('Poor', 'Fair', 'Good', 'Excellent', 'WOW!!!')
+            for i in range(rate):
+                book.rate.append(('star selected', rate_title[i], i + 1))
+            for j in range(5 - rate):
+                book.rate.append(('star', rate_title[j + rate], j + rate + 1))
         context.update({
-            'book_list': Book.objects.filter(title__icontains=q),
-            'author_list': Author.objects.filter(name__icontains=q),
+            'book_list': book_list,
+            'author_list': author_list,
+            'q': querystring,
         })
         return context
 
