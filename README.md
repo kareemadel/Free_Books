@@ -2,6 +2,7 @@
 
 Introduction
 ------------
+A library application implemented in python3 using the Django framework.
 
 Prerequisites
 -------------
