@@ -1,8 +1,29 @@
-# Free_Books
-An implementation of web application  using Django 
+# Free Books
 
-Team Members:
+Introduction
+------------
 
-1) Kareem Adel (kareemadel).
+Prerequisites
+-------------
+* Python>=3.4
+* virtualenv
 
-2) Shaimaa Nabil (shaimaanabil).
+How to Install
+----------
+```bash
+# clone the repo
+$ git clone https://github.com/kareemadel/Free_Books
+$ cd Free_Books
+# create the virtual environemnt
+$ mkdir virtualenvironment
+$ virtualenv virtualenvironment
+$ source virtualenvironment/bin/activate
+# install the dependencies
+$ python3 -m pip install -r Library/requirements.txt
+```
+
+How to Run the App
+-----------------------
+```bash
+$ python3 Library/manage.py runserver
+```
