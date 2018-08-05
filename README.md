@@ -20,6 +20,8 @@ $ mkdir virtualenvironment
 $ virtualenv virtualenvironment
 $ source virtualenvironment/bin/activate
 # install the dependencies
+# first install mysql
+$ sudo apt-get install mysql-server libmysqlclient-dev
 $ python3 -m pip install -r Library/requirements.txt
 ```
 
