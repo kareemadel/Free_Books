@@ -23,6 +23,9 @@ $ source virtualenvironment/bin/activate
 $ sudo apt-get install mysql-server libmysqlclient-dev
 # create a database 'FreeBooks', add user 'kash' with password 'JHY&*Y(*UYHYG87has', You can change that obviosly but don't to forget to also change it in settings.py
 # install the dependencies
+# first install mysql
+$ sudo apt-get install mysql-server libmysqlclient-dev
+# create the database, and change the settings.py DATABASES variable accrodingly
 $ python3 -m pip install -r Library/requirements.txt
 # apply the migrations
 $ python3 Library/manage.py migrate
