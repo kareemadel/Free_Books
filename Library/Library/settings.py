@@ -81,7 +81,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'FreeBooks',
 		'USER':'kash',
-		'PASSWORD':'1234',
+		'PASSWORD':'JHY&*Y(*UYHYG87has',
         'HOST': 'localhost',
     }
 }
